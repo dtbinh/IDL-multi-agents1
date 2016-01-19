@@ -1,3 +1,4 @@
+package model;
 
 public class Environement {
 
@@ -31,7 +32,7 @@ public class Environement {
 	  int x = agent.getX();
 	  int y = agent.getY();
 	  if (this.agentIsPresent(x, y)) {
-	    System.out.println("WARN : an agent is already here ["+x+"]["+y+"].");
+	    //System.out.println("WARN : an agent is already here ["+x+"]["+y+"].");
 	  } else {
 	    this.space[x][y] = agent;
 	  }
