@@ -1,10 +1,7 @@
 package main;
 
 import engine.SMA;
-import model.Environement;
 import util.Data;
-import view.Panel;
-import view.Vue;
 
 public class SmaMain {
 

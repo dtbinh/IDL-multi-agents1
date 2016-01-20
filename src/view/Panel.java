@@ -17,10 +17,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
-import engine.SMA;
 import model.Environement;
 import util.Data;
 
+@SuppressWarnings("serial")
 public class Panel extends JPanel implements Observer {
 
   Environement env;
@@ -29,13 +29,12 @@ public class Panel extends JPanel implements Observer {
   private JPanel panelInfo;
   private int tour;
   private JTextField txtTour;
-  private SMA sma;
 
-  public Panel(int size) {
-    this.grid = new JPanel[size][size];
-    this.init(size);
-    this.sma = new SMA();
-  }
+//  public Panel(int size) {
+//    this.grid = new JPanel[size][size];
+//    this.init(size);
+//    this.sma = new SMA();
+//  }
 
   public Panel(Environement env) {
     this.env = env;
@@ -44,10 +43,6 @@ public class Panel extends JPanel implements Observer {
     this.init(size);
   }
 
-  public void runSMA() throws InterruptedException {
-    this.sma.run();
-  }
-  
   public void setEnvironement(Environement env) {
     this.env = env;
   }
@@ -60,10 +55,18 @@ public class Panel extends JPanel implements Observer {
   public void update(Observable arg0, Object arg1) {
     this.updateGrid();
     this.updateInfo();
-    this.revalidate();
+//    this.revalidate();
     this.repaint();
   }
 
+  /**
+   * Méthode d'initialisation appelée dans le constructeur du Panel.
+   * <br/>
+   * Instancie et configure un nouveau panel pour la grille,
+   * <br/>
+   * Instancie et configure un nouveau panel pour les informations.
+   * @param size La taille de la grille (en nombre de cases)
+   */
   private void init(int size) {
     this.setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
     this.setPreferredSize(new Dimension(750, 600));
@@ -84,9 +87,12 @@ public class Panel extends JPanel implements Observer {
     this.add(this.panel);
     this.panelInfo = initInfo();
     this.add(panelInfo);
-//    this.updateGrid();
+    // this.updateGrid();
   }
 
+  /**
+   * Met à jour l'affichage de la grille (la colorisation).
+   */
   private void updateGrid() {
     for (int x = 0; x < this.grid.length; x++) {
       for (int y = 0; y < this.grid[x].length; y++) {
@@ -97,14 +103,23 @@ public class Panel extends JPanel implements Observer {
         }
       }
     }
-    this.panel.repaint();
+//    this.panel.revalidate();
+//    this.panel.repaint();
   }
 
+  /**
+   * Met à jour le nombre de tours dans le panel d'informations.
+   */
   private void updateInfo() {
     this.txtTour.setText(this.tour + "");
     this.panelInfo.repaint();
   }
 
+  /**
+   * Initialise les composents pour le panel contenant les textes d'infos
+   * (nombre de billes, taille de la grille, nombre de tours, vitesse).
+   * @return <code>JPanel</code> un JPanel construit
+   */
   private JPanel initInfo() {
     JPanel info = new JPanel();
     info.setLayout(new FlowLayout());
@@ -126,9 +141,9 @@ public class Panel extends JPanel implements Observer {
     btnStart.setText("START");
     btnStart.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        System.out.println("Source : "+e.getSource());
-//          sma.init();
-//          sma.run();
+        System.out.println("Source : " + e.getSource());
+        // sma.init();
+        // sma.run();
       }
     });
 

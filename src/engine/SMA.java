@@ -17,12 +17,12 @@ public class SMA {
   private List<Agent> agents;
 
   /**
-   * Constructeur par défaut qui appelle la méthode d'initialisation.
+   * Constructeur par défaut. Ne fait rien.
    */
   public SMA() {
-    this.init();
+    
   }
-
+  
   private void createAgents(int nombreAgents, int size) {
     agents = new ArrayList<Agent>();
     // création de la liste d'agents
@@ -38,8 +38,10 @@ public class SMA {
     // on initialise l'environnement
     this.envi = new Environement();
     envi.init(Data.size);
+    
     // on crée les agents
     this.createAgents(Data.nombreAgents, Data.size);
+    
     // on les place dans l'environnement
     for (Agent agent : this.agents) {
       this.envi.addAgent(agent);
@@ -60,7 +62,7 @@ public class SMA {
       for (Agent agent : this.agents) {
         agent.doIt();
         Environement newEnv = agent.getEnv(); // l'environnement modifié après le déplacement de l'agent
-        this.envi = newEnv; // On met à jour l'environnement pour les agents suivants
+//        this.envi = newEnv; // On met à jour l'environnement pour les agents suivants
       }
 
       this.init();
