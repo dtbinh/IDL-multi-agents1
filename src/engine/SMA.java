@@ -30,6 +30,9 @@ public class SMA {
       Random rand = new Random();
       int x = rand.nextInt((size - 1) + 1);
       int y = rand.nextInt((size - 1) + 1);
+      if(x == -1 || x ==50 ||y==-1||y==50){
+        System.out.println("quegfuqgemfh<soelghioegh");
+      }
       Agent newAgent = new Agent(x, y);
       newAgent.setEnv(env);
       this.agents.add(newAgent);

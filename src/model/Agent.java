@@ -2,8 +2,6 @@ package model;
 
 import java.util.Random;
 
-import util.Data;
-
 public class Agent {
 
   private int posX;
@@ -63,22 +61,14 @@ public class Agent {
     int oldX = this.getPosX();
     int oldY = this.getPosY();
 
-    // On récupère les anciennes valeurs diagonales
-    int oldPasX = this.getPasX();
-    int oldPaxY = this.getPasY();
-
     // Si aucune direction déjà choisie (ie. pasX et pasY = 0)
-    if (oldPasX == 0 || oldPaxY == 0) {
+    if (this.getPasX() == 0 || this.getPasY() == 0) {
       // Alors on génère les directions pour les diagonales
       this.pasX = genererDirection();
       this.pasY = genererDirection();
-
     }
 
     // Calcul des nouvelles coordonnées
-    // int nouveauX = (this.posX + this.pasX) % (Data.size-1);
-    // int nouveauY = (this.posY + this.pasY) % (Data.size-1);
-
     int nouveauX = (this.posX + this.pasX);
     int nouveauY = (this.posY + this.pasY);
 
@@ -88,11 +78,12 @@ public class Agent {
         // on est dans le coin haut droite
         // on décrémente X et on part en bas à gauche
         this.posX--;
+        this.posY--;
         this.pasX = -1;
         this.pasY = -1;
       } else if (nouveauY == -1) {
         // on est dans le coin bas droite
-        // on incrément Y et on part en haut à gauche
+        // on incrémente Y et on part en haut à gauche
         this.posY++;
         this.pasX = -1;
         this.pasY = 1;
@@ -102,7 +93,7 @@ public class Agent {
     } else if (nouveauX == -1) {
       if (nouveauY == -1) {
         // on est dans le coin en bas à gauche
-        // on incrément X et on part en haut à droite
+        // on incrémente X et on part en haut à droite
         this.posX++;
         this.pasX = 1;
         this.pasY = 1;
@@ -123,9 +114,12 @@ public class Agent {
 
     // S'il y a un agent qui se trouve à ces nouvelles coord.
     if (this.envi.agentIsPresent(nouveauX, nouveauY)) {
-      // on part dans la direction opposée
-      nouveauX = (this.posX + (this.pasX * -1)) % (Data.size - 1);
-      nouveauY = (this.posY + (this.pasY * -1)) % (Data.size - 1);
+      // on part sur la gauche de notre direction initiale
+      if (this.pasX == this.pasY) {
+        nouveauX = (nouveauX + (this.pasX * -1));
+      } else {
+        nouveauY = (nouveauY + (this.pasY * -1));
+      }
     }
 
     // Modification de l'agent

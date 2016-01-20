@@ -21,13 +21,9 @@ public class SmaMain {
      */
 
     Data.size = 50;
-    Data.nombreAgents = 15;
+    Data.nombreAgents = 150;
     Data.tours = 500;
     Data.vitesse = 100;
-
-//    Panel panel = new Panel(50);
-//    Data.v = new Vue(panel);
-//    Data.v.addObserver(panel);
 
     try {
       SMA sma = new SMA();
