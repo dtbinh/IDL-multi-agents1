@@ -2,6 +2,8 @@ package model;
 
 import java.util.Random;
 
+import util.Data;
+
 public class Agent {
 
   private int posX;
@@ -73,8 +75,8 @@ public class Agent {
     int nouveauY = (this.posY + this.pasY);
 
     // S'il y a une borne de grille, on change de direction
-    if (nouveauX == 50) {
-      if (nouveauY == 50) {
+    if (nouveauX == Data.size) {
+      if (nouveauY == Data.size) {
         // on est dans le coin haut droite
         // on décrémente X et on part en bas à gauche
         this.posX--;
@@ -91,6 +93,13 @@ public class Agent {
         this.pasX = this.pasX * -1;
       }
     } else if (nouveauX == -1) {
+      if (nouveauY == Data.size) {
+        System.out.println("oldX : "+oldX+" oldY : "+oldY);
+        this.posX++;
+        this.pasX = 1;
+        this.pasY = -1;
+        System.out.println("Checkpoint");
+      }
       if (nouveauY == -1) {
         // on est dans le coin en bas à gauche
         // on incrémente X et on part en haut à droite
@@ -102,7 +111,7 @@ public class Agent {
         this.pasX = this.pasX * -1;
       }
     } else {
-      if (nouveauY == -1 || nouveauY == 50) {
+      if (nouveauY == -1 || nouveauY == Data.size) {
         // on rebondit sur la tranche du bas ou sur celle du haut
         this.pasY = this.pasY * -1;
       }
