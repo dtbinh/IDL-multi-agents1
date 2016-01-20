@@ -51,14 +51,11 @@ public class SMA {
 
     // on les place dans l'environnement
     for (Agent agent : this.agents) {
-      if (!this.envi.addAgent(agent)) {
-        Boolean ajoute = false;
-        while (!ajoute) {
-          agent.setPosX(obtenirPositionRandom(Data.size));
-          agent.setPosY(obtenirPositionRandom(Data.size));
-          ajoute = this.envi.addAgent(agent);
-        }
-
+      Boolean ajoute = this.envi.addAgent(agent);
+      while (!ajoute) { // tant que non ajouté
+        agent.setPosX(obtenirPositionRandom(Data.size));
+        agent.setPosY(obtenirPositionRandom(Data.size));
+        ajoute = this.envi.addAgent(agent);
       }
     }
   }

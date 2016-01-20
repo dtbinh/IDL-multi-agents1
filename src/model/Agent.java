@@ -94,7 +94,7 @@ public class Agent {
       }
     } else if (nouveauX == -1) {
       if (nouveauY == Data.size) {
-        System.out.println("oldX : "+oldX+" oldY : "+oldY);
+        System.out.println("oldX : " + oldX + " oldY : " + oldY);
         this.posX++;
         this.pasX = 1;
         this.pasY = -1;
@@ -136,9 +136,16 @@ public class Agent {
     this.setPosY(nouveauY);
 
     // Modification de l'environnement
-    this.envi.deleteAgent(oldX, oldY);
-    this.envi.addAgent(this);
-
+    // Si on ne peut pas ajouter l'agent à la nouvelle position
+    // Alors on reste statique et on attend le tour prochain
+    if (this.envi.addAgent(this)) {
+      this.envi.deleteAgent(oldX, oldY);
+    }
+    else {
+      // on remet les anciennes coordonnées
+      this.setPosX(oldX);
+      this.setPosY(oldY);
+    }
   }
 
   private int genererDirection() {
