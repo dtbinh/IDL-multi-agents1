@@ -52,6 +52,9 @@ public class GridPanel extends JPanel implements Observer {
 	  for (int x = 0; x < env.getTailleGrille(); x++) {
 	      for (int y = 0; y < env.getTailleGrille(); y++) {
 	    	  
+	    	  g.setColor(Color.lightGray);
+	    	  g.drawRect((x*width), (y*height), width, height);
+	    	  
 	    	  if (env.agentIsPresent(x, y)) {
 	    		  g.setColor(Color.BLUE);
 	    		  //g.(x, y, width, height);
