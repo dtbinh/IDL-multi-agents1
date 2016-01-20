@@ -22,7 +22,7 @@ public class SmaMain {
 
     Data.size = 50;
     Data.nombreAgents = 15;
-    Data.tours = 25;
+    Data.tours = 500;
     Data.vitesse = 100;
 
 //    Panel panel = new Panel(50);

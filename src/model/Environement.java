@@ -29,8 +29,8 @@ public class Environement {
 	}
 	
 	public void addAgent(Agent agent) {
-	  int x = agent.getX();
-	  int y = agent.getY();
+	  int x = agent.getPosX();
+	  int y = agent.getPosY();
 	  if (this.agentIsPresent(x, y)) {
 	    //System.out.println("WARN : an agent is already here ["+x+"]["+y+"].");
 	  } else {

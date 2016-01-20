@@ -23,14 +23,16 @@ public class SMA {
     
   }
   
-  private void createAgents(int nombreAgents, int size) {
+  private void createAgents(int nombreAgents, int size, Environement env) {
     agents = new ArrayList<Agent>();
     // création de la liste d'agents
     for (int indexAgent = 0; indexAgent < nombreAgents; indexAgent++) {
       Random rand = new Random();
       int x = rand.nextInt((size - 1) + 1);
       int y = rand.nextInt((size - 1) + 1);
-      this.agents.add(new Agent(x, y));
+      Agent newAgent = new Agent(x, y);
+      newAgent.setEnv(env);
+      this.agents.add(newAgent);
     }
   }
 
@@ -40,7 +42,7 @@ public class SMA {
     envi.init(Data.size);
     
     // on crée les agents
-    this.createAgents(Data.nombreAgents, Data.size);
+    this.createAgents(Data.nombreAgents, Data.size, this.envi);
     
     // on les place dans l'environnement
     for (Agent agent : this.agents) {
@@ -62,10 +64,10 @@ public class SMA {
       for (Agent agent : this.agents) {
         agent.doIt();
         Environement newEnv = agent.getEnv(); // l'environnement modifié après le déplacement de l'agent
-//        this.envi = newEnv; // On met à jour l'environnement pour les agents suivants
+        this.envi = newEnv; // On met à jour l'environnement pour les agents suivants
       }
 
-      this.init();
+//      this.init();
       v.updateVue(this.envi, tour + 1);
       Thread.sleep(Data.vitesse); // On ralentit l'exécution
     }
