@@ -20,8 +20,8 @@ public class SmaMain {
      * - seed pour le Random (voir https://docs.oracle.com/javase/7/docs/api/java/util/Random.html#setSeed(long))
      */
 
-    Data.size = 50;
-    Data.nombreAgents = 150;
+    Data.size = 300;
+    Data.nombreAgents = 10500;
     Data.tours = 1000;
     Data.vitesse = 150;
     Data.grilleVisible = true;
