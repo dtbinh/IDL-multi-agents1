@@ -155,7 +155,7 @@ public class Panel extends JPanel implements Observer {
     info.add(txtTour);
     info.add(lblVitesse);
     info.add(txtVitesse);
-    info.add(btnStart);
+    //info.add(btnStart);
 
     return info;
   }
