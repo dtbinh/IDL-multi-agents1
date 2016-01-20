@@ -20,36 +20,46 @@ public class SMA {
    * Constructeur par défaut. Ne fait rien.
    */
   public SMA() {
-    
+
   }
-  
+
   private void createAgents(int nombreAgents, int size, Environement env) {
     agents = new ArrayList<Agent>();
     // création de la liste d'agents
     for (int indexAgent = 0; indexAgent < nombreAgents; indexAgent++) {
-      Random rand = new Random();
-      int x = rand.nextInt((size - 1) + 1);
-      int y = rand.nextInt((size - 1) + 1);
-      if(x == -1 || x ==50 ||y==-1||y==50){
-        System.out.println("quegfuqgemfh<soelghioegh");
-      }
+      int x = obtenirPositionRandom(size);
+      int y = obtenirPositionRandom(size);
+
       Agent newAgent = new Agent(x, y);
       newAgent.setEnv(env);
       this.agents.add(newAgent);
     }
   }
 
+  private Integer obtenirPositionRandom(Integer size) {
+    Random rand = new Random();
+    return rand.nextInt((size - 1) + 1);
+  }
+
   public void init() {
     // on initialise l'environnement
     this.envi = new Environement();
     envi.init(Data.size);
-    
+
     // on crée les agents
     this.createAgents(Data.nombreAgents, Data.size, this.envi);
-    
+
     // on les place dans l'environnement
     for (Agent agent : this.agents) {
-      this.envi.addAgent(agent);
+      if (!this.envi.addAgent(agent)) {
+        Boolean ajoute = false;
+        while (!ajoute) {
+          agent.setPosX(obtenirPositionRandom(Data.size));
+          agent.setPosY(obtenirPositionRandom(Data.size));
+          ajoute = this.envi.addAgent(agent);
+        }
+
+      }
     }
   }
 
@@ -70,7 +80,7 @@ public class SMA {
         this.envi = newEnv; // On met à jour l'environnement pour les agents suivants
       }
 
-//      this.init();
+      // this.init();
       v.updateVue(this.envi, tour + 1);
       Thread.sleep(Data.vitesse); // On ralentit l'exécution
     }

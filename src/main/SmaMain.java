@@ -21,7 +21,7 @@ public class SmaMain {
      */
 
     Data.size = 50;
-    Data.nombreAgents = 150;
+    Data.nombreAgents = 50;
     Data.tours = 500;
     Data.vitesse = 100;
 
