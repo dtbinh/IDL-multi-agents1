@@ -20,10 +20,11 @@ public class SmaMain {
      * - seed pour le Random (voir https://docs.oracle.com/javase/7/docs/api/java/util/Random.html#setSeed(long))
      */
 
-    Data.size = 100;
-    Data.nombreAgents = 150;
+
+    Data.size = 10;
+    Data.nombreAgents = 50;
     Data.tours = 100;
-    Data.vitesse = 50;
+    Data.vitesse = 100;
 
     try {
       SMA sma = new SMA();

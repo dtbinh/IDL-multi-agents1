@@ -136,15 +136,17 @@ public class Agent {
     this.setPosY(nouveauY);
 
     // Modification de l'environnement
-    // Si on ne peut pas ajouter l'agent à la nouvelle position
-    // Alors on reste statique et on attend le tour prochain
     if (this.envi.addAgent(this)) {
       this.envi.deleteAgent(oldX, oldY);
     }
     else {
-      // on remet les anciennes coordonnées
+      // Si on ne peut pas ajouter l'agent à la nouvelle position
+      // Alors on reste statique et on genere une nouvelle direction aleatoire
+      // puis on attend le prochain tour
       this.setPosX(oldX);
       this.setPosY(oldY);
+      this.setPasX(genererDirection());
+      this.setPasY(genererDirection());
     }
   }
 
