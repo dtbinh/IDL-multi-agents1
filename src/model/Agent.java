@@ -8,14 +8,16 @@ public class Agent {
 
   private int posX;
   private int posY;
-  private int pasX;
-  private int pasY;
+  private Integer pasX;
+  private Integer pasY;
   private Environement envi;
 
   public Agent(int posX, int posY) {
     super();
     this.posX = posX;
     this.posY = posY;
+    this.pasX = null;
+    this.pasY = null;
   }
 
   public int getPosX() {
@@ -34,7 +36,7 @@ public class Agent {
     this.posY = posY;
   }
 
-  public int getPasX() {
+  public Integer getPasX() {
     return pasX;
   }
 
@@ -42,7 +44,7 @@ public class Agent {
     this.pasX = pasX;
   }
 
-  public int getPasY() {
+  public Integer getPasY() {
     return pasY;
   }
 
@@ -64,7 +66,7 @@ public class Agent {
     int oldY = this.getPosY();
 
     // Si aucune direction déjà choisie (ie. pasX et pasY = 0)
-    if (this.getPasX() == 0 || this.getPasY() == 0) {
+    if (this.getPasX() == null || this.getPasY() == null) {
       // Alors on génère les directions pour les diagonales
       this.pasX = genererDirection();
       this.pasY = genererDirection();
@@ -98,7 +100,6 @@ public class Agent {
         this.posX++;
         this.pasX = 1;
         this.pasY = -1;
-        System.out.println("Checkpoint");
       }
       if (nouveauY == -1) {
         // on est dans le coin en bas à gauche

@@ -4,14 +4,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -29,12 +26,6 @@ public class Panel extends JPanel implements Observer {
   private JPanel panelInfo;
   private int tour;
   private JTextField txtTour;
-
-//  public Panel(int size) {
-//    this.grid = new JPanel[size][size];
-//    this.init(size);
-//    this.sma = new SMA();
-//  }
 
   public Panel(Environement env) {
     this.env = env;
@@ -55,7 +46,6 @@ public class Panel extends JPanel implements Observer {
   public void update(Observable arg0, Object arg1) {
     this.updateGrid();
     this.updateInfo();
-//    this.revalidate();
     this.repaint();
   }
 
@@ -79,8 +69,10 @@ public class Panel extends JPanel implements Observer {
         grid[x][y] = new JPanel();
         int dim = 600 / size;
         this.grid[x][y].setPreferredSize(new Dimension(dim, dim));
-        Border emptyBorder = BorderFactory.createLineBorder(Color.lightGray, 1);// .createLineBorder(Color.gray);
-        grid[x][y].setBorder(emptyBorder);
+        if (Data.grilleVisible) {
+          Border emptyBorder = BorderFactory.createLineBorder(Color.lightGray, 1);// .createLineBorder(Color.gray);
+          grid[x][y].setBorder(emptyBorder);
+        }
         this.panel.add(grid[x][y]);
       }
     }
@@ -103,8 +95,6 @@ public class Panel extends JPanel implements Observer {
         }
       }
     }
-//    this.panel.revalidate();
-//    this.panel.repaint();
   }
 
   /**
@@ -137,15 +127,6 @@ public class Panel extends JPanel implements Observer {
     JLabel lblVitesse = new JLabel("Vitesse     ");
     JTextField txtVitesse = new JTextField(Data.vitesse + "");
     txtVitesse.setPreferredSize(new Dimension(80, 20));
-    JButton btnStart = new JButton();
-    btnStart.setText("START");
-    btnStart.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        System.out.println("Source : " + e.getSource());
-        // sma.init();
-        // sma.run();
-      }
-    });
 
     info.add(lblBilles);
     info.add(txtBilles);
@@ -155,7 +136,6 @@ public class Panel extends JPanel implements Observer {
     info.add(txtTour);
     info.add(lblVitesse);
     info.add(txtVitesse);
-    //info.add(btnStart);
 
     return info;
   }

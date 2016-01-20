@@ -70,7 +70,9 @@ public class SMA {
     Thread.sleep(Data.vitesse);
 
     for (int tour = 0; tour < Data.tours; tour++) {
-      Collections.shuffle(this.agents);
+      if (Data.equite) {
+        Collections.shuffle(this.agents);
+      }
       for (Agent agent : this.agents) {
         agent.doIt();
         Environement newEnv = agent.getEnv(); // l'environnement modifié après le déplacement de l'agent

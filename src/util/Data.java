@@ -9,4 +9,6 @@ public class Data {
   public static int tours;
   public static long vitesse;
   public static Vue v;
+  public static Boolean grilleVisible;
+  public static Boolean equite; // shuffle ou non
 }
