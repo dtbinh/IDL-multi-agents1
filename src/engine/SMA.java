@@ -8,7 +8,8 @@ import java.util.Random;
 import model.Agent;
 import model.Environement;
 import util.Data;
-import view.Panel;
+import view.ControlPanel;
+import view.GridPanel;
 import view.Vue;
 
 public class SMA {
@@ -62,8 +63,9 @@ public class SMA {
 
   public void run() throws InterruptedException {
     // initialiser la vue
-    Panel panel = new Panel(this.envi);
-    Vue v = new Vue(panel);
+    GridPanel panel = new GridPanel(this.envi);
+    ControlPanel control = new ControlPanel();
+    Vue v = new Vue(panel,control);
     v.addObserver(panel);
     // Data.v.setEnvironement(this.envi);
     // Data.v.updateVue(this.envi, 0);
