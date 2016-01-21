@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.util.Observable;
 import javax.swing.BoxLayout;
@@ -34,7 +35,8 @@ public class Vue extends Observable { // implements Observer
         panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
         panel.add(grid,BorderLayout.CENTER);
         panel.add(control,BorderLayout.EAST);
-        frame.add(panel);
+        panel.setBackground(Color.white);
+        frame.add(panel);        
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -46,9 +48,8 @@ public class Vue extends Observable { // implements Observer
     this.env = env;
   }
 
-  public void updateVue(Environement env, int tour) {
+  public void updateVue(Environement env) {
     setChanged();
-    notifyObservers(); // on notifie que la vue a changé
+    notifyObservers(); // on notifie que la vue a changï¿½
   }
-
 }
