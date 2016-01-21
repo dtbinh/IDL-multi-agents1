@@ -3,14 +3,14 @@ package model;
 public class Environement {
 
   private int gridSize;
-	private Agent[][] space;
+	private Bille[][] space;
 	
 	public void init(int size){
 		/*
 		 * initialise le tableau
 		 */
 	  this.gridSize = size;
-	  this.space = new Agent[size][size]; // tous les agents sont nuls
+	  this.space = new Bille[size][size]; // tous les agents sont nuls
 	  
 	}
 	
@@ -28,7 +28,7 @@ public class Environement {
 	  }
 	}
 	
-	public Boolean addAgent(Agent agent) {
+	public Boolean addAgent(Bille agent) {
 	  int x = agent.getPosX();
 	  int y = agent.getPosY();
 	  if (this.agentIsPresent(x, y)) {
