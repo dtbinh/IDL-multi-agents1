@@ -3,19 +3,23 @@ package model;
 public class Environement {
 
   private int gridSize;
-	private Bille[][] space;
+	private Agent[][] space;
 	
 	public void init(int size){
 		/*
 		 * initialise le tableau
 		 */
 	  this.gridSize = size;
-	  this.space = new Bille[size][size]; // tous les agents sont nuls
+	  this.space = new Agent[size][size]; // tous les agents sont nuls
 	  
 	}
 	
 	public Boolean agentIsPresent(int x, int y) {
 	  return this.space[x][y] != null;
+	}
+	
+	public Class<?> getAgentInstance(int x, int y){
+		return this.space[x][y].getClass();
 	}
 	
 	public int getTailleGrille() {
@@ -28,11 +32,11 @@ public class Environement {
 	  }
 	}
 	
-	public Boolean addAgent(Bille agent) {
+	public Boolean addAgent(Agent agent) {
 	  int x = agent.getPosX();
 	  int y = agent.getPosY();
 	  if (this.agentIsPresent(x, y)) {
-	    System.out.println("WARN : an agent is already here ["+x+"]["+y+"].");
+	    //System.out.println("WARN : an agent is already here ["+x+"]["+y+"].");
 	    return false;
 	  } else {
 	    this.space[x][y] = agent;

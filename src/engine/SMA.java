@@ -5,8 +5,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import model.Agent;
 import model.Bille;
 import model.Environement;
+import model.Poisson;
+import model.Requin;
 import util.Data;
 import view.ControlPanel;
 import view.GridPanel;
@@ -15,7 +18,7 @@ import view.Vue;
 public class SMA {
 
   private Environement envi;
-  private List<Bille> agents;
+  private List<Agent> agents;
 
   /**
    * Constructeur par d�faut. Ne fait rien.
@@ -24,16 +27,39 @@ public class SMA {
 
   }
 
-  private void createAgents(int nombreAgents, int size, Environement env) {
-    agents = new ArrayList<Bille>();
-    // cr�ation de la liste d'agents
-    for (int indexAgent = 0; indexAgent < nombreAgents; indexAgent++) {
-      int x = obtenirPositionRandom(size);
-      int y = obtenirPositionRandom(size);
+  private void createAgents(Environement env) {
+    agents = new ArrayList<Agent>();
+    // cr�ation de la liste d'agents TP1
+    if(Data.tp==1){
+    	for (int indexAgent = 0; indexAgent < Data.nombreAgents; indexAgent++) {
+	      int x = obtenirPositionRandom(Data.size);
+	      int y = obtenirPositionRandom(Data.size);
 
-      Bille newAgent = new Bille(x, y);
-      newAgent.setEnv(env);
-      this.agents.add(newAgent);
+	      Bille newAgent = new Bille(x, y);
+	      newAgent.setEnv(env);
+	      this.agents.add(newAgent);
+	    }
+    }
+ // cr�ation de la liste d'agents TP2
+    if(Data.tp==2){
+    	//Poissons
+    	for (int indexAgent = 0; indexAgent < Data.nombrePoissons; indexAgent++) {
+  	      int x = obtenirPositionRandom(Data.size);
+  	      int y = obtenirPositionRandom(Data.size);
+
+  	      Poisson newAgent = new Poisson(x, y);
+  	      newAgent.setEnv(env);
+  	      this.agents.add(newAgent);
+  	    }
+    	//Requins
+    	for (int indexAgent = 0; indexAgent < Data.nombreRequins; indexAgent++) {
+  	      int x = obtenirPositionRandom(Data.size);
+  	      int y = obtenirPositionRandom(Data.size);
+
+  	      Requin newAgent = new Requin(x, y);
+  	      newAgent.setEnv(env);
+  	      this.agents.add(newAgent);
+  	    }
     }
   }
 
@@ -48,10 +74,10 @@ public class SMA {
     envi.init(Data.size);
 
     // on cr�e les agents
-    this.createAgents(Data.nombreAgents, Data.size, this.envi);
+    this.createAgents(this.envi);
 
     // on les place dans l'environnement
-    for (Bille agent : this.agents) {
+    for (Agent agent : this.agents) {
       Boolean ajoute = this.envi.addAgent(agent);
       while (!ajoute) { // tant que non ajout�
         agent.setPosX(obtenirPositionRandom(Data.size));
@@ -76,7 +102,7 @@ public class SMA {
       if (Data.equite) {
         Collections.shuffle(this.agents);
       }
-      for (Bille agent : this.agents) {
+      for (Agent agent : this.agents) {
         agent.doIt();
         Environement newEnv = agent.getEnv(); // l'environnement modifi� apr�s le d�placement de l'agent
         this.envi = newEnv; // On met � jour l'environnement pour les agents suivants

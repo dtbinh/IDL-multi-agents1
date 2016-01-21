@@ -65,7 +65,7 @@ public class ControlPanel extends JPanel implements Observer {
 	    pnlInit.setLayout(new FlowLayout());
 	    pnlInit.setBackground(Color.white);
 	    
-	    if(Data.tp==2){
+	    if(Data.tp==1){
 	    	JLabel lblBilles = new JLabel("Nombre de billes");
 		    JTextField txtBilles = new JTextField(Data.nombreAgents + "");
 		    txtBilles.setPreferredSize(new Dimension(80, 20));
@@ -76,7 +76,7 @@ public class ControlPanel extends JPanel implements Observer {
 		    pnlInit.add(lblBilles);
 		    pnlInit.add(txtBilles);
 	    }
-	    if(Data.tp==1){
+	    if(Data.tp==2){
 	    	JLabel lblPoissons = new JLabel("Poissons");
 		    JTextField txtPoissons = new JTextField(Data.nombrePoissons + "");
 		    txtPoissons.setPreferredSize(new Dimension(80, 20));

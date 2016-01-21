@@ -35,7 +35,7 @@ public class Vue extends Observable { // implements Observer
         panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
         panel.add(grid,BorderLayout.CENTER);
         panel.add(control,BorderLayout.EAST);
-        panel.setBackground(Color.white);
+        panel.setBackground(new Color(205,239,255));
         frame.add(panel);        
         frame.pack();
         frame.setLocationRelativeTo(null);
