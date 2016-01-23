@@ -75,7 +75,7 @@ public class Requin implements Agent{
 		// On sauvegarde les anciennes coordonn�es
 	    int oldX = this.getPosX();
 	    int oldY = this.getPosY();
-
+	    
 	    // Si aucune direction d�j� choisie (ie. pasX et pasY = 0)
 	    if (this.getPasX() == null || this.getPasY() == null) {
 	      // Alors on g�n�re les directions pour les diagonales
@@ -86,20 +86,20 @@ public class Requin implements Agent{
 	    // Calcul des nouvelles coordonn�es
 	    int nouveauX = (this.posX + this.pasX);
 	    int nouveauY = (this.posY + this.pasY);
-
+	    System.out.println("newX:"+nouveauX+" | newY:"+nouveauY);
 	    // S'il y a une borne de grille, on change de direction
 	    if (nouveauX == Data.size) {
 	      if (nouveauY == Data.size) {
 	        // on est dans le coin haut droite
 	        // on d�cr�mente X et on part en bas � gauche
-	        this.posX--;
-	        this.posY--;
+	        //this.posX--;
+	        //this.posY--;
 	        this.pasX = -1;
 	        this.pasY = -1;
 	      } else if (nouveauY == -1) {
 	        // on est dans le coin bas droite
 	        // on incr�mente Y et on part en haut � gauche
-	        this.posY++;
+	        //this.posY++;
 	        this.pasX = -1;
 	        this.pasY = 1;
 	      } else { // on rebondit sur la tranche de droite
@@ -107,18 +107,17 @@ public class Requin implements Agent{
 	      }
 	    } else if (nouveauX == -1) {
 	      if (nouveauY == Data.size) {
-	        System.out.println("oldX : " + oldX + " oldY : " + oldY);
-	        this.posX++;
+	        //this.posX++;
 	        this.pasX = 1;
 	        this.pasY = -1;
 	      }
-	      if (nouveauY == -1) {
+	      else if (nouveauY == -1) {
 	        // on est dans le coin en bas � gauche
 	        // on incr�mente X et on part en haut � droite
-	        this.posX++;
+	        //this.posX++;
 	        this.pasX = 1;
 	        this.pasY = 1;
-	      } else {
+	      } else if(nouveauX!=0){
 	        // on rebondit sur la tranche de gauche
 	        this.pasX = this.pasX * -1;
 	      }
@@ -132,7 +131,7 @@ public class Requin implements Agent{
 	    // on recalcule les nouvelles coordonn�es
 	    nouveauX = (this.posX + this.pasX);
 	    nouveauY = (this.posY + this.pasY);
-
+	       
 	    // S'il y a un agent qui se trouve � ces nouvelles coord.
 	    if (this.envi.agentIsPresent(nouveauX, nouveauY)) {
 	      // on part sur la gauche de notre direction initiale

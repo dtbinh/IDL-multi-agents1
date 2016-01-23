@@ -118,7 +118,9 @@ public class SMA {
   
   private void printEnv(){
 	  for(Agent a: this.agents){
-		  System.out.println("x: "+a.getPosX()+" | y: "+a.getPosY());
+		  int x = a.getPosX();
+		  int y = a.getPosY();
+		  System.out.println("x: "+x+" | y: "+y+" | "+this.envi.getAgentInstance(x, y));
 	  }
   }
 }
