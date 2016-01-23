@@ -85,5 +85,12 @@ public class SMA {
       v.updateVue(this.envi, tour + 1);
       Thread.sleep(Data.vitesse); // On ralentit l'exécution
     }
+    printEnv();
+  }
+  
+  private void printEnv(){
+	  for(Agent a: this.agents){
+		  System.out.println("x: "+a.getPosX()+" | y: "+a.getPosY());
+	  }
   }
 }
