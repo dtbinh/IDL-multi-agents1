@@ -18,6 +18,10 @@ public class Environement {
 	  return this.space[x][y] != null;
 	}
 	
+	public Class<?> getAgentInstance(int x, int y){
+		return this.space[x][y].getClass();
+	}
+	
 	public int getTailleGrille() {
 	  return this.gridSize;
 	}
@@ -32,7 +36,7 @@ public class Environement {
 	  int x = agent.getPosX();
 	  int y = agent.getPosY();
 	  if (this.agentIsPresent(x, y)) {
-	    System.out.println("WARN : an agent is already here ["+x+"]["+y+"].");
+	    //System.out.println("WARN : an agent is already here ["+x+"]["+y+"].");
 	    return false;
 	  } else {
 	    this.space[x][y] = agent;

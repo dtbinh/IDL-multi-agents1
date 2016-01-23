@@ -13,19 +13,30 @@ public class SmaMain {
      * - taille de la bille
      * - vitesse
      * 
-     * Paramètres optionnels :
-     * - visibilité de la grille
-     * - équité -> shuffle
+     * Paramï¿½tres optionnels :
+     * - visibilitï¿½ de la grille
+     * - ï¿½quitï¿½ -> shuffle
      * - grille torique
      * - seed pour le Random (voir https://docs.oracle.com/javase/7/docs/api/java/util/Random.html#setSeed(long))
-     */
-
-    Data.size = 300;
-    Data.nombreAgents = 10500;
-    Data.tours = 1000;
-    Data.vitesse = 150;
-    Data.grilleVisible = true;
+     */	
+	
+    Data.size = 2;    
+    Data.tours = 20;
+    Data.vitesse = 1000;
+    Data.grilleVisible = false;
     Data.equite = true;
+    Data.tp=1;
+    
+    //Donnes en fonction du tp
+    if(Data.tp==1)
+    	Data.nombreAgents = 100;
+    if(Data.tp==2){
+    	Data.seedPoisson = 2;
+        Data.seedRequin = 3;
+        Data.nombrePoissons=1;
+        Data.nombreRequins=1;
+    }
+    
 
     try {
       SMA sma = new SMA();
