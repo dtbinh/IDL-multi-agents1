@@ -60,7 +60,7 @@ public class Bille implements Agent{
     return this.envi;
   }
 
-  public void doIt() {
+  public Bille doIt() {
     // On sauvegarde les anciennes coordonn�es
     int oldX = this.getPosX();
     int oldY = this.getPosY();
@@ -149,6 +149,7 @@ public class Bille implements Agent{
       this.setPasX(genererDirection());
       this.setPasY(genererDirection());
     }
+    return null;
   }
 
   private int genererDirection() {

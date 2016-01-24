@@ -11,6 +11,7 @@ public class Requin implements Agent{
 	  private Integer pasX;
 	  private Integer pasY;
 	  private Environement envi;
+	  private int tour;
 	  
 	  public Requin(int posX, int posY) {
 		    super();
@@ -18,6 +19,7 @@ public class Requin implements Agent{
 		    this.posY = posY;
 		    this.pasX = null;
 		    this.pasY = null;
+		    this.tour=0;
 		  }
 	  
 	@Override
@@ -71,7 +73,40 @@ public class Requin implements Agent{
 	}
 
 	@Override
-	public void doIt() {
+	public Requin doIt() {
+		// On sauvegarde les anciennes coordonn�es
+	    int oldX = this.getPosX();
+	    int oldY = this.getPosY();	    
+	    deplacement();
+	    Requin newRequin = seReproduire(oldX,oldY);
+		//Returne un nouveau objet Requin s'il s'a reproduit si non retourne null
+		return newRequin;  
+	    
+	}
+	
+	private boolean verifierReproduction(){
+		if(this.tour==Data.seedRequin){
+			this.tour=0;
+			return true;
+		} else{
+			this.tour++;
+			return false;
+		}			
+	}
+	
+	private Requin seReproduire(int x, int y){
+		System.out.println("#"+Data.nombreAgents);
+		if(verifierReproduction() && Data.nombreAgents <(Data.size*Data.size)){
+			Requin requin = new Requin(x,y);
+			requin.setEnv(this.envi);
+			Data.nombreAgents++;			
+			return requin;
+		}
+		else
+			return null;		
+	}
+	
+	private void deplacement(){
 		// On sauvegarde les anciennes coordonn�es
 	    int oldX = this.getPosX();
 	    int oldY = this.getPosY();
@@ -86,7 +121,6 @@ public class Requin implements Agent{
 	    // Calcul des nouvelles coordonn�es
 	    int nouveauX = (this.posX + this.pasX);
 	    int nouveauY = (this.posY + this.pasY);
-	    System.out.println("newX:"+nouveauX+" | newY:"+nouveauY);
 	    // S'il y a une borne de grille, on change de direction
 	    if (nouveauX == Data.size) {
 	      if (nouveauY == Data.size) {
@@ -158,7 +192,7 @@ public class Requin implements Agent{
 	      this.setPosY(oldY);
 	      this.setPasX(genererDirection());
 	      this.setPasY(genererDirection());
-	    }		
+	    }
 	}
 
 	private int genererDirection() {

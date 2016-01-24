@@ -16,4 +16,5 @@ public class Data {
   public static int nombrePoissons;
   public static int nombreRequins;
   public static int tp; //numero du tp qui define la configuration de l'environement
+  
 }

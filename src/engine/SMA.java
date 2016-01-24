@@ -26,41 +26,31 @@ public class SMA {
   public SMA() {
 
   }
-
+  
   private void createAgents(Environement env) {
     agents = new ArrayList<Agent>();
-    // cr�ation de la liste d'agents TP1
-    if(Data.tp==1){
-    	for (int indexAgent = 0; indexAgent < Data.nombreAgents; indexAgent++) {
-	      int x = obtenirPositionRandom(Data.size);
-	      int y = obtenirPositionRandom(Data.size);
+    // cr�ation de la liste d'agents TP2
+	//Poissons
+	for (int indexAgent = 0; indexAgent < Data.nombrePoissons; indexAgent++) {
+      int x = obtenirPositionRandom(Data.size);
+      int y = obtenirPositionRandom(Data.size);
 
-	      Bille newAgent = new Bille(x, y);
-	      newAgent.setEnv(env);
-	      this.agents.add(newAgent);
-	    }
+      Poisson newAgent = new Poisson(x, y);
+      newAgent.setEnv(env);
+      this.agents.add(newAgent);
+      Data.nombreAgents++;
     }
- // cr�ation de la liste d'agents TP2
-    if(Data.tp==2){
-    	//Poissons
-    	for (int indexAgent = 0; indexAgent < Data.nombrePoissons; indexAgent++) {
-  	      int x = obtenirPositionRandom(Data.size);
-  	      int y = obtenirPositionRandom(Data.size);
+	//Requins
+	for (int indexAgent = 0; indexAgent < Data.nombreRequins; indexAgent++) {
+      int x = obtenirPositionRandom(Data.size);
+      int y = obtenirPositionRandom(Data.size);
 
-  	      Poisson newAgent = new Poisson(x, y);
-  	      newAgent.setEnv(env);
-  	      this.agents.add(newAgent);
-  	    }
-    	//Requins
-    	for (int indexAgent = 0; indexAgent < Data.nombreRequins; indexAgent++) {
-  	      int x = obtenirPositionRandom(Data.size);
-  	      int y = obtenirPositionRandom(Data.size);
-
-  	      Requin newAgent = new Requin(x, y);
-  	      newAgent.setEnv(env);
-  	      this.agents.add(newAgent);
-  	    }
+      Requin newAgent = new Requin(x, y);
+      newAgent.setEnv(env);
+      this.agents.add(newAgent);
+      Data.nombreAgents++;
     }
+    
   }
 
   private Integer obtenirPositionRandom(Integer size) {
@@ -86,41 +76,59 @@ public class SMA {
       }
     }
   }
-
+  
   public void run() throws InterruptedException {
+	  System.out.println("#"+Data.nombreAgents);
     // initialiser la vue
     GridPanel panel = new GridPanel(this.envi);
     ControlPanel control = new ControlPanel();
     Vue v = new Vue(panel,control);
     v.addObserver(panel);
     v.addObserver(control);
-    // Data.v.setEnvironement(this.envi);
-    // Data.v.updateVue(this.envi, 0);
     Thread.sleep(Data.vitesse);
 
     for (int tour = 0; tour < Data.tours; tour++) {
       if (Data.equite) {
         Collections.shuffle(this.agents);
       }
-      for (Agent agent : this.agents) {
-        agent.doIt();
+      
+      List<Agent> newAgents = new ArrayList<Agent>();  
+      for (Agent agent : this.agents) {    	
+        Agent newAgent = agent.doIt();
+        if(newAgent!=null){
+        	newAgents.add(newAgent);
+        }
         Environement newEnv = agent.getEnv(); // l'environnement modifi� apr�s le d�placement de l'agent
         this.envi = newEnv; // On met � jour l'environnement pour les agents suivants
+        v.updateVue(this.envi);
       }
-
-      // this.init();
+      
+      //mettre a jour la liste des agents
+      for(Agent agent:newAgents){
+    	  this.agents.add(agent);
+    	  Boolean ajoute = this.envi.addAgent(agent);
+    	  while(!ajoute){
+    		  agent.setPosX(obtenirPositionRandom(Data.size));
+			  agent.setPosY(obtenirPositionRandom(Data.size));
+			  ajoute = this.envi.addAgent(agent);
+    	  }
+      }
+      
       control.setTour(tour);
       v.updateVue(this.envi);
+      //printEnv();
       Thread.sleep(Data.vitesse); // On ralentit l'ex�cution
     }
-    printEnv();
+    //printEnv();
   }
   
   private void printEnv(){
+	  
 	  for(Agent a: this.agents){
 		  int x = a.getPosX();
 		  int y = a.getPosY();
 		  System.out.println("x: "+x+" | y: "+y+" | "+this.envi.getAgentInstance(x, y));
 	  }
+	  System.out.println("----------------------");
   }
 }

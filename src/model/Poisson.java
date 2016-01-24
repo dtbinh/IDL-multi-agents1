@@ -11,6 +11,7 @@ public class Poisson implements Agent{
     private Integer pasX;
     private Integer pasY;
     private Environement envi;
+    private int tour;
 	  
 	public Poisson(int posX, int posY) {
 	    super();
@@ -18,6 +19,7 @@ public class Poisson implements Agent{
 	    this.posY = posY;
 	    this.pasX = null;
 	    this.pasY = null;
+	    this.tour=0;
 	  }
 	
 	@Override
@@ -72,7 +74,39 @@ public class Poisson implements Agent{
 	}
 
 	@Override
-	public void doIt() {
+	public Poisson doIt() {
+		int oldX = this.getPosX();
+	    int oldY = this.getPosY();	    
+	    deplacement();
+	    Poisson newPoisson = seReproduire(oldX,oldY);
+		
+		return newPoisson;
+	}
+	
+	private boolean verifierReproduction(){
+		//System.out.println(this.tour);
+		if(this.tour==Data.seedPoisson){
+			this.tour=0;
+			return true;
+		} else{
+			this.tour++;
+			return false;
+		}			
+	}
+	
+	private Poisson seReproduire(int x, int y){
+		System.out.println("#"+Data.nombreAgents);
+		if(verifierReproduction() && Data.nombreAgents <(Data.size*Data.size)){
+			Poisson poisson = new Poisson(x,y);
+			poisson.setEnv(this.envi);
+			Data.nombreAgents++;			
+			return poisson;
+		}
+		else
+			return null;		
+	}
+	
+	private void deplacement(){
 		// On sauvegarde les anciennes coordonn�es
 	    int oldX = this.getPosX();
 	    int oldY = this.getPosY();
@@ -87,7 +121,6 @@ public class Poisson implements Agent{
 	    // Calcul des nouvelles coordonn�es
 	    int nouveauX = (this.posX + this.pasX);
 	    int nouveauY = (this.posY + this.pasY);
-	    System.out.println("newX:"+nouveauX+" | newY:"+nouveauY);
 	    // S'il y a une borne de grille, on change de direction
 	    if (nouveauX == Data.size) {
 	      if (nouveauY == Data.size) {
@@ -159,7 +192,7 @@ public class Poisson implements Agent{
 	      this.setPosY(oldY);
 	      this.setPasX(genererDirection());
 	      this.setPasY(genererDirection());
-	    }		
+	    }
 	}
 	
 	private int genererDirection() {

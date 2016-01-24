@@ -12,5 +12,9 @@ public interface Agent {
 	public void setPasY(int pasY);
 	public void setEnv(Environement env);
 	public Environement getEnv();
-	public void doIt();
+	/**
+	 * 
+	 * @return Le nouveau agent apres la reproduction
+	 */
+	public Agent doIt();
 }
