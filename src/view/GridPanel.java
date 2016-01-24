@@ -30,7 +30,7 @@ public class GridPanel extends JPanel implements Observer {
     int size = this.env.getTailleGrille();
     this.grid = new JPanel[size][size];
     this.setPreferredSize(new Dimension(600, 600));
-    this.setBackground(new Color(205,239,255));
+    //this.setBackground(new Color(205,239,255));
   }
 
   public void setEnvironement(Environement env) {
@@ -60,9 +60,13 @@ public class GridPanel extends JPanel implements Observer {
 	    		  }
 	    		  if(Data.tp==2){
 	    			  if (env.getAgentInstance(x, y).equals(Poisson.class)) {
+	    				  g.setColor(new Color(205,239,255));
+	    	    		  g.fillRect((x*width), (y*height), width, height);
 	    				  g.setColor(new Color(255,51,153));
 			    		  g.fillOval((x*width), (y*height), width, height);
 	    			  } else{
+	    				  g.setColor(new Color(205,239,255));
+	    	    		  g.fillRect((x*width), (y*height), width, height);
 	    				  g.setColor(Color.blue);
 	    				  g.fillPolygon(new int[] {(x*width), ((x*width)+(width/2)),(x*width)+width}, 
 	    				  		  new int[] {(y*height)+height, (y*height),(y*height)+height}, 3);
@@ -71,7 +75,7 @@ public class GridPanel extends JPanel implements Observer {
 	    		  }
 	    	  }
 	    	  else{
-	    		  g.setColor(getBackground());
+	    		  g.setColor(new Color(205,239,255));
 	    		  g.fillRect((x*width), (y*height), width, height);
 	    	  }
 	      }

@@ -83,8 +83,9 @@ public class SMA {
     GridPanel panel = new GridPanel(this.envi);
     ControlPanel control = new ControlPanel();
     Vue v = new Vue(panel,control);
-    v.addObserver(panel);
     v.addObserver(control);
+    v.addObserver(panel);
+    
     Thread.sleep(Data.vitesse);
 
     for (int tour = 0; tour < Data.tours; tour++) {

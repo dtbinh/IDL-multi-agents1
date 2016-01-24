@@ -77,11 +77,11 @@ public class ControlPanel extends JPanel implements Observer {
 		    pnlInit.add(txtBilles);
 	    }
 	    if(Data.tp==2){
-	    	JLabel lblPoissons = new JLabel("Poissons");
+	    	JLabel lblPoissons = new JLabel("Poissons     ");
 		    JTextField txtPoissons = new JTextField(Data.nombrePoissons + "");
 		    txtPoissons.setPreferredSize(new Dimension(80, 20));
 		    txtPoissons.setEditable(false);
-		    JLabel lblRequins= new JLabel("Requins");
+		    JLabel lblRequins= new JLabel("Requins     ");
 		    JTextField txtRequins = new JTextField(Data.nombreRequins + "");
 		    txtRequins.setPreferredSize(new Dimension(80, 20));
 		    txtRequins.setEditable(false);
@@ -112,7 +112,7 @@ public class ControlPanel extends JPanel implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
-		this.txtTour.setText(this.tour + "");
+		this.txtTour.setText((this.tour+1) + "");
 	    this.repaint();
 	}
 }
