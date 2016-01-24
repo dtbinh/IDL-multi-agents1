@@ -99,7 +99,8 @@ public class Poisson implements Agent{
 		if(verifierReproduction() && Data.nombreAgents <(Data.size*Data.size)){
 			Poisson poisson = new Poisson(x,y);
 			poisson.setEnv(this.envi);
-			Data.nombreAgents++;			
+			Data.nombreAgents++;	
+			Data.nombrePoissons++;
 			return poisson;
 		}
 		else

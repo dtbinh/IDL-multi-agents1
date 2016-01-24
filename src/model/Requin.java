@@ -99,7 +99,8 @@ public class Requin implements Agent{
 		if(verifierReproduction() && Data.nombreAgents <(Data.size*Data.size)){
 			Requin requin = new Requin(x,y);
 			requin.setEnv(this.envi);
-			Data.nombreAgents++;			
+			Data.nombreAgents++;		
+			Data.nombreRequins++;
 			return requin;
 		}
 		else
