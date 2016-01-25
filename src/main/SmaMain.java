@@ -14,9 +14,9 @@ public class SmaMain {
      * - taille de la bille
      * - vitesse
      * 
-     * Param�tres optionnels :
-     * - visibilit� de la grille
-     * - �quit� -> shuffle
+     * Paramétres optionnels :
+     * - visibilité de la grille
+     * - équité -> shuffle
      * - grille torique
      * - seed pour le Random (voir https://docs.oracle.com/javase/7/docs/api/java/util/Random.html#setSeed(long))
      */	
@@ -38,11 +38,16 @@ public class SmaMain {
 	    }
 	    if(Data.tp==2){
 	    	Data.nombreAgents = 0;
-	    	Data.seedPoisson = 2;
-	        Data.seedRequin = 2;
-	        Data.nombrePoissons=100;
-	        Data.nombreRequins=100;
-	        SMA sma2 = new SMA();
+
+			Data.nombrePoissons = 50;
+			Data.nombreRequins = 1;
+
+			Data.seedPoisson = 2;
+			Data.seedRequin = 100;
+
+			Data.longeviteRequin = 11;
+
+			SMA sma2 = new SMA();
 	        sma2.init();
 	        sma2.run();
 	    }

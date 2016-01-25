@@ -21,7 +21,11 @@ public class Environement {
 	public Class<?> getAgentInstance(int x, int y){
 		return this.space[x][y].getClass();
 	}
-	
+
+	public Agent getAgent(int x, int y) {
+		return this.space[x][y];
+	}
+
 	public int getTailleGrille() {
 	  return this.gridSize;
 	}

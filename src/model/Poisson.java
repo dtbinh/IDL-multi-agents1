@@ -1,8 +1,8 @@
 package model;
 
-import java.util.Random;
-
 import util.Data;
+
+import java.util.Random;
 
 public class Poisson implements Agent{
 
@@ -76,16 +76,19 @@ public class Poisson implements Agent{
 	@Override
 	public Poisson doIt() {
 		int oldX = this.getPosX();
-	    int oldY = this.getPosY();	    
-	    deplacement();
+	    int oldY = this.getPosY();
+		seDeplacer();
 	    Poisson newPoisson = seReproduire(oldX,oldY);
 		
 		return newPoisson;
 	}
-	
-	private boolean verifierReproduction(){
-		//System.out.println(this.tour);
-		if(this.tour==Data.seedPoisson){
+
+	/**
+	 * V&eacute;rifie si un poisson peut se reproduire.
+	 * @return <code>true</code> si un poisson peut se reproduire, <code>false</code> sinon.
+	 */
+	private boolean peutSeReproduire(){
+		if (this.tour == Data.seedPoisson){
 			this.tour=0;
 			return true;
 		} else{
@@ -93,47 +96,55 @@ public class Poisson implements Agent{
 			return false;
 		}			
 	}
-	
+
+	/**
+	 * Faire se repoduire un poisson.
+	 * @param x la position X du nouveau poisson
+	 * @param y la position Y du nouveau poisson
+     * @return le nouveau poisson si créé, null sinon.
+     */
 	private Poisson seReproduire(int x, int y){
-		System.out.println("#"+Data.nombreAgents);
-		if(verifierReproduction() && Data.nombreAgents <(Data.size*Data.size)){
+		if (peutSeReproduire() && Data.nombreAgents <(Data.size*Data.size)){
 			Poisson poisson = new Poisson(x,y);
 			poisson.setEnv(this.envi);
-			Data.nombreAgents++;	
+			Data.nombreAgents++;
 			Data.nombrePoissons++;
 			return poisson;
 		}
 		else
-			return null;		
+			return null;
 	}
-	
-	private void deplacement(){
-		// On sauvegarde les anciennes coordonn�es
+
+	/**
+	 * Déplace un poisson dans son environnement.
+	 */
+	private void seDeplacer(){
+		// On sauvegarde les anciennes coordonnées
 	    int oldX = this.getPosX();
 	    int oldY = this.getPosY();
 	    
-	    // Si aucune direction d�j� choisie (ie. pasX et pasY = 0)
+	    // Si aucune direction déjé choisie (ie. pasX et pasY = 0)
 	    if (this.getPasX() == null || this.getPasY() == null) {
-	      // Alors on g�n�re les directions pour les diagonales
+	      // Alors on génére les directions pour les diagonales
 	      this.pasX = genererDirection();
 	      this.pasY = genererDirection();
 	    }
 
-	    // Calcul des nouvelles coordonn�es
+	    // Calcul des nouvelles coordonnées
 	    int nouveauX = (this.posX + this.pasX);
 	    int nouveauY = (this.posY + this.pasY);
 	    // S'il y a une borne de grille, on change de direction
 	    if (nouveauX == Data.size) {
 	      if (nouveauY == Data.size) {
 	        // on est dans le coin haut droite
-	        // on d�cr�mente X et on part en bas � gauche
+	        // on décrémente X et on part en bas é gauche
 	        //this.posX--;
 	        //this.posY--;
 	        this.pasX = -1;
 	        this.pasY = -1;
 	      } else if (nouveauY == -1) {
 	        // on est dans le coin bas droite
-	        // on incr�mente Y et on part en haut � gauche
+	        // on incrémente Y et on part en haut é gauche
 	        //this.posY++;
 	        this.pasX = -1;
 	        this.pasY = 1;
@@ -147,8 +158,8 @@ public class Poisson implements Agent{
 	        this.pasY = -1;
 	      }
 	      else if (nouveauY == -1) {
-	        // on est dans le coin en bas � gauche
-	        // on incr�mente X et on part en haut � droite
+	        // on est dans le coin en bas é gauche
+	        // on incrémente X et on part en haut é droite
 	        //this.posX++;
 	        this.pasX = 1;
 	        this.pasY = 1;
@@ -163,11 +174,11 @@ public class Poisson implements Agent{
 	      }
 	    }
 
-	    // on recalcule les nouvelles coordonn�es
+	    // on recalcule les nouvelles coordonnées
 	    nouveauX = (this.posX + this.pasX);
 	    nouveauY = (this.posY + this.pasY);
 	       
-	    // S'il y a un agent qui se trouve � ces nouvelles coord.
+	    // S'il y a un agent qui se trouve é ces nouvelles coord.
 	    if (this.envi.agentIsPresent(nouveauX, nouveauY)) {
 	      // on part sur la gauche de notre direction initiale
 	      if (this.pasX == this.pasY) {
@@ -186,7 +197,7 @@ public class Poisson implements Agent{
 	      this.envi.deleteAgent(oldX, oldY);
 	    }
 	    else {
-	      // Si on ne peut pas ajouter l'agent � la nouvelle position
+	      // Si on ne peut pas ajouter l'agent é la nouvelle position
 	      // Alors on reste statique et on genere une nouvelle direction aleatoire
 	      // puis on attend le prochain tour
 	      this.setPosX(oldX);
@@ -195,7 +206,11 @@ public class Poisson implements Agent{
 	      this.setPasY(genererDirection());
 	    }
 	}
-	
+
+	/**
+	 * Génére un nombre aléatoire entre -1 et 1
+	 * @return un nombre aléatoire
+     */
 	private int genererDirection() {
 	    int result;
 	    Random r = new Random();

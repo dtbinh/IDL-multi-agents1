@@ -1,16 +1,10 @@
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.EventQueue;
-import java.util.Observable;
-import javax.swing.BoxLayout;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
 import model.Environement;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.Observable;
 
 public class Vue extends Observable { // implements Observer
 
@@ -50,6 +44,6 @@ public class Vue extends Observable { // implements Observer
 
   public void updateVue(Environement env) {
     setChanged();
-    notifyObservers(); // on notifie que la vue a chang�
+    notifyObservers(); // on notifie que la vue a changé
   }
 }

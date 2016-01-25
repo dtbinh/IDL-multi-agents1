@@ -1,8 +1,8 @@
 package model;
 
-import java.util.Random;
-
 import util.Data;
+
+import java.util.Random;
 
 public class Bille implements Agent{
 
@@ -61,18 +61,18 @@ public class Bille implements Agent{
   }
 
   public Bille doIt() {
-    // On sauvegarde les anciennes coordonn�es
+    // On sauvegarde les anciennes coordonnées
     int oldX = this.getPosX();
     int oldY = this.getPosY();
 
-    // Si aucune direction d�j� choisie (ie. pasX et pasY = 0)
+    // Si aucune direction déjà choisie (ie. pasX et pasY = 0)
     if (this.getPasX() == null || this.getPasY() == null) {
-      // Alors on g�n�re les directions pour les diagonales
+      // Alors on génére les directions pour les diagonales
       this.pasX = genererDirection();
       this.pasY = genererDirection();
     }
 
-    // Calcul des nouvelles coordonn�es
+    // Calcul des nouvelles coordonnées
     int nouveauX = (this.posX + this.pasX);
     int nouveauY = (this.posY + this.pasY);
 
@@ -80,14 +80,14 @@ public class Bille implements Agent{
     if (nouveauX == Data.size) {
       if (nouveauY == Data.size) {
         // on est dans le coin haut droite
-        // on d�cr�mente X et on part en bas � gauche
+        // on décrémente X et on part en bas é gauche
         this.posX--;
         this.posY--;
         this.pasX = -1;
         this.pasY = -1;
       } else if (nouveauY == -1) {
         // on est dans le coin bas droite
-        // on incr�mente Y et on part en haut � gauche
+        // on incrémente Y et on part en haut é gauche
         this.posY++;
         this.pasX = -1;
         this.pasY = 1;
@@ -96,14 +96,13 @@ public class Bille implements Agent{
       }
     } else if (nouveauX == -1) {
       if (nouveauY == Data.size) {
-        System.out.println("oldX : " + oldX + " oldY : " + oldY);
         this.posX++;
         this.pasX = 1;
         this.pasY = -1;
       }
       if (nouveauY == -1) {
-        // on est dans le coin en bas � gauche
-        // on incr�mente X et on part en haut � droite
+        // on est dans le coin en bas é gauche
+        // on incrémente X et on part en haut é droite
         this.posX++;
         this.pasX = 1;
         this.pasY = 1;
@@ -118,11 +117,11 @@ public class Bille implements Agent{
       }
     }
 
-    // on recalcule les nouvelles coordonn�es
+    // on recalcule les nouvelles coordonnées
     nouveauX = (this.posX + this.pasX);
     nouveauY = (this.posY + this.pasY);
 
-    // S'il y a un agent qui se trouve � ces nouvelles coord.
+    // S'il y a un agent qui se trouve é ces nouvelles coord.
     if (this.envi.agentIsPresent(nouveauX, nouveauY)) {
       // on part sur la gauche de notre direction initiale
       if (this.pasX == this.pasY) {
@@ -141,7 +140,7 @@ public class Bille implements Agent{
       this.envi.deleteAgent(oldX, oldY);
     }
     else {
-      // Si on ne peut pas ajouter l'agent � la nouvelle position
+      // Si on ne peut pas ajouter l'agent é la nouvelle position
       // Alors on reste statique et on genere une nouvelle direction aleatoire
       // puis on attend le prochain tour
       this.setPosX(oldX);
