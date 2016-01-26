@@ -46,7 +46,7 @@ public class GridPanel extends JPanel implements Observer {
   {
 	  int width = (getWidth()/env.getTailleGrille() <= 1) ? 2 : getWidth()/env.getTailleGrille();
 	  int height = (getHeight()/env.getTailleGrille() <= 1) ? 2 : getHeight()/env.getTailleGrille();
-	  System.out.println(getWidth());
+	  //System.out.println(getWidth());
 	  //Billes
 	  for (int x = 0; x < env.getTailleGrille(); x++) {
 	      for (int y = 0; y < env.getTailleGrille(); y++) {
