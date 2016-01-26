@@ -84,7 +84,7 @@ public class Requin implements Agent {
 
   @Override
   public Requin doIt() {
-
+	  Requin requin = null;
     Coordonnees coordPoisson = peutManger();
 
     if (coordPoisson != null) { // Alors il y a un poisson à manger
@@ -101,23 +101,24 @@ public class Requin implements Agent {
 
     } else { // Alors il n'y a aucun poisson à manger
       Coordonnees placeLibre = chercherPlaceLibre();
-
       if (placeLibre != null) { // Il y a une place libre à proximité
-
-        if (peutSeReproduire()) {
+    	  
+        //if (peutSeReproduire()) {
           // Alors on place notre bébé ici et on se déplace en même temps
-          seReproduire(placeLibre.getX(), placeLibre.getY());
-        } else {
+    	  int oldX = this.getPosX();
+          int oldY = this.getPosY();
+	      seDeplacer(placeLibre.getX(), placeLibre.getY());
+          requin = seReproduire(oldX, oldY);
+        //} else {
           // On se déplace uniquement
-          seDeplacer(placeLibre.getX(), placeLibre.getY());
-        }
-      }
+          
+        }      
     }
 
     // On décrémente le nombre de points de vie du requin
     this.setPv(this.getPv() - 1);
 
-    return this;
+    return requin;
   }
 
   /**
@@ -143,6 +144,18 @@ public class Requin implements Agent {
       return false;
     }
   }
+  
+  private Requin seReproduire(int x, int y){
+		if (peutSeReproduire() && Data.nombreAgents <(Data.size*Data.size)){
+			Requin requin = new Requin(x,y);
+			requin.setEnv(this.envi);
+			Data.nombreAgents++;
+			Data.nombrePoissons++;
+			return requin;
+		}
+		else
+			return null;
+	}
 
   /**
    * Faire se reproduire un requin. Donne naissance à un nouveau requin et se déplace.
@@ -151,8 +164,8 @@ public class Requin implements Agent {
    * @param prochainY la coordonnée Y du requin qui se déplace
    * @return le nouveau requin
    */
-  private Requin seReproduire(int prochainX, int prochainY) {
-    if (Data.nombreAgents < (Data.size * Data.size)) {
+  /*private Requin seReproduire(int prochainX, int prochainY) {
+    if (peutSeReproduire()  && Data.nombreAgents < (Data.size * Data.size)) {
       int nouvellePositionX = this.getPosX();
       int nouvellePositionY = this.getPosY();
 
@@ -174,7 +187,7 @@ public class Requin implements Agent {
     } else {
       return null;
     }
-  }
+  }*/
 
   /**
    * Vérifie si le requin peut manger un poisson aux alentours.
@@ -194,7 +207,7 @@ public class Requin implements Agent {
     for (int index = r; index < directions.length + r; index++) {
       // On récupère la direction
       Direction d = directions[index % directions.length];
-
+      
       if (this.getEnv().agentIsPresent(this.getPosX() + d.getDeltaX(), this.getPosY() + d.getDeltaY())) {
         if (this.getEnv().getAgent(this.getPosX() + d.getDeltaX(), this.getPosY() + d.getDeltaY()) instanceof Poisson) {
           coordonnees.setX(this.getPosX() + d.getDeltaX());
@@ -203,7 +216,6 @@ public class Requin implements Agent {
         }
       }
     }
-
     return coordonnees;
   }
 
@@ -225,6 +237,7 @@ public class Requin implements Agent {
 
     for (int index = r; index < directions.length + r; index++) {
       // On récupère la direction
+    	System.out.println(index);
       Direction d = directions[index % directions.length];
 
       if (!this.getEnv().agentIsPresent(this.getPosX() + d.getDeltaX(), this.getPosY() + d.getDeltaY())) {
@@ -233,7 +246,6 @@ public class Requin implements Agent {
         ok = true;
         break;
       }
-
     }
 
     return ok ? coordonnees : null;
