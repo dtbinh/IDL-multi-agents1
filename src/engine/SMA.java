@@ -111,7 +111,7 @@ public class SMA {
 
                 Environement newEnv = agent.getEnv(); // l'environnement modifié aprés le déplacement de l'agent
                 this.envi = newEnv; // On met é jour l'environnement pour les agents suivants
-//                v.updateVue(this.envi);
+                v.updateVue(this.envi);
             }
 
             //mettre a jour la liste des agents
@@ -133,10 +133,10 @@ public class SMA {
 
             control.setTour(tour);
             v.updateVue(this.envi);
-            //printEnv();
+//            printEnv();
             Thread.sleep(Data.vitesse); // On ralentit l'exécution
         }
-        //printEnv();
+//        printEnv();
     }
 
     private void printEnv() {
