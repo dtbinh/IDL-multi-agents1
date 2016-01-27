@@ -15,6 +15,11 @@ public class Data {
   public static int seedRequin; //Nombre des tours un requin doit attendre pour se reproduire
   public static int nombrePoissons;
   public static int nombreRequins;
-  public static int tp; //numero du tp qui definit la configuration de l'environement
+  public static int tp; //numero du tp qui definit la configuration de l'environnement
   public static int longeviteRequin; // nombre de jours qu'un requin peut vivre sans manager
+
+  // Pacman
+  public static int nombreBlocs;
+  public static int nombrePoursuiveurs;
+  public static Boolean afficherDistances;
 }

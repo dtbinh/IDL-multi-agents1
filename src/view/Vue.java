@@ -1,6 +1,6 @@
 package view;
 
-import model.Environement;
+import core.Environement;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,8 +12,8 @@ public class Vue extends Observable { // implements Observer
   GridPanel grid;
   ControlPanel control;
 
-  public Vue(GridPanel pnl,ControlPanel control) {
-    
+  public Vue(GridPanel pnl, ControlPanel control) {
+
     EventQueue.invokeLater(new Runnable() {
       @Override
       public void run() {
@@ -27,10 +27,10 @@ public class Vue extends Observable { // implements Observer
         frame.setLayout(new BorderLayout());
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
-        panel.add(grid,BorderLayout.CENTER);
-        panel.add(control,BorderLayout.EAST);
+        panel.add(grid, BorderLayout.CENTER);
+        panel.add(control, BorderLayout.EAST);
         //panel.setBackground(new Color(205,239,255));
-        frame.add(panel);        
+        frame.add(panel);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
