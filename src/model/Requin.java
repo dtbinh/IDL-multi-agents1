@@ -96,7 +96,7 @@ public class Requin implements Agent {
  // On décrémente le nombre de points de vie du requin
     this.setPv(this.getPv() - 1);
     
-    this.envi.printEnv();
+    //this.envi.printEnv();
     Coordonnees coordPoisson = peutManger();
 
    if (coordPoisson != null) { // Alors il y a un poisson à manger

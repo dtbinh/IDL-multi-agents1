@@ -39,11 +39,11 @@ public class SmaMain {
       if (Data.tp == 2) {
         Data.nombreAgents = 0;
 
-        Data.nombrePoissons = 10;
+        Data.nombrePoissons = 1;
         Data.nombreRequins = 1;
 
-        Data.seedPoisson = 200;
-        Data.seedRequin = 200;
+        Data.seedPoisson = 1;
+        Data.seedRequin = 5;
 
         Data.longeviteRequin = 10;
 

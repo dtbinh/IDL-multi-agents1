@@ -101,7 +101,7 @@ public class SMA {
       for (Agent agent : this.agents) {
     	  if(!containsAgent(deletedAgents,agent)){
     		  System.out.println(agent instanceof Requin?"Requin":"Poisson");
-        	  printEnv();
+        	  //printEnv();
         	  int oldX = agent.getPosX();
         	  int oldY = agent.getPosY();
         	  agent.setEnv(this.envi);
@@ -165,7 +165,7 @@ public class SMA {
         }        
       }
       System.out.println("Fin du tour----------------");
-      printEnv();
+      //printEnv();
       control.setTour(tour);
       v.updateVue(this.envi);
       
@@ -180,6 +180,7 @@ public class SMA {
 		  Agent a = agents.get(i);
 		  if(a.getPosX() == agent.getPosX() && a.getPosY() == agent.getPosY()) {
 			  indx = i;
+			  break;
 		  }
 	  }
 	  if(indx !=-1){
