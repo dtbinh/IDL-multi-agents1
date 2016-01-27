@@ -47,4 +47,14 @@ public class Environement {
 	    return true;
 	  }
 	}
+	
+	public void printEnv(){
+		System.out.println("------Print ENv----------------------");
+		for(int x=0; x< this.gridSize;x++){
+			for(int i =0; i<this.gridSize;i++){	
+				if(this.space[x][i]!=null)
+				System.out.println(this.space[x][i].getPosX()+" | "+this.space[x][i].getPosY());
+			}
+		}
+	}
 }

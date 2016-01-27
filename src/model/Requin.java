@@ -90,43 +90,50 @@ public class Requin implements Agent {
 
   @Override
   public Requin doIt() {
+	  this.poissonMange = null;
     Requin requin = null;
+    
+ // On décrémente le nombre de points de vie du requin
+    this.setPv(this.getPv() - 1);
+    
+    this.envi.printEnv();
     Coordonnees coordPoisson = peutManger();
 
-    if (coordPoisson != null) { // Alors il y a un poisson à manger
+   if (coordPoisson != null) { // Alors il y a un poisson à manger
       System.out.println("Peut manger le poisson en "+coordPoisson.getX()+":"+coordPoisson.getY());
 
       // On met à jour le nombre de pv du requin
       this.setPv(Data.longeviteRequin);
 
       // On supprime le poisson
+      this.poissonMange = new Poisson(coordPoisson.getX(), coordPoisson.getY());
+      this.poissonMange.setEnv(this.envi);
       this.envi.deleteAgent(coordPoisson.getX(), coordPoisson.getY());
+      /*this.envi.deleteAgent(coordPoisson.getX(), coordPoisson.getY());
+      this.poissonMange = new Poisson(coordPoisson.getX(), coordPoisson.getY());*/
       Data.nombrePoissons--;
       Data.nombreAgents--;
 
       // On déplace le requin jusque la position du poisson
-      seDeplacer(coordPoisson.getX(), coordPoisson.getY());
+      //seDeplacer(coordPoisson.getX(), coordPoisson.getY());
+      /*this.envi.deleteAgent(this.getPosX(), this.getPosY());
+      this.setPosX(coordPoisson.getX());
+      this.setPosY(coordPoisson.getY());*/
+      //System.out.println();
 
-    } else { // Alors il n'y a aucun poisson à manger
+    } else { // Alors il n'y a aucun poisson à manger*/
       Coordonnees placeLibre = chercherPlaceLibre();
       if (placeLibre != null) { // Il y a une place libre à proximité
         System.out.println("Ne mange pas et se deplace "+placeLibre.getX()+":"+placeLibre.getY());
 
-        if (peutSeReproduire()) {
           // Alors on place notre bébé ici et on se déplace en même temps
           int oldX = this.getPosX();
           int oldY = this.getPosY();
           seDeplacer(placeLibre.getX(), placeLibre.getY());
           requin = seReproduire(oldX, oldY);
-
-        } else {
-          // On se déplace uniquement
-          seDeplacer(placeLibre.getX(), placeLibre.getY());
-        }
       }
     }
-    // On décrémente le nombre de points de vie du requin
-    this.setPv(this.getPv() - 1);
+    
 
     return requin;
   }
@@ -163,8 +170,9 @@ public class Requin implements Agent {
       Data.nombreRequins++;
       Data.nombreAgents++;
       return requin;
-    } else
+    } else{
       return null;
+    }
   }
 
   /**
@@ -201,8 +209,8 @@ public class Requin implements Agent {
         testY = Data.size - 1;
       }
 
-      if (this.getEnv().agentIsPresent(testX, testY)) {
-        if (this.getEnv().getAgent(testX, testY) instanceof Poisson) {
+      if (this.envi.agentIsPresent(testX, testY)) {
+        if (this.envi.getAgent(testX, testY) instanceof Poisson) {
           coordonnees.setX(testX);
           coordonnees.setY(testY);
           return coordonnees;
@@ -230,7 +238,7 @@ public class Requin implements Agent {
 
     for (int index = r; index < directions.length + r; index++) {
       // On récupère la direction
-      System.out.println(index);
+      //System.out.println(index);
       Direction d = directions[index % directions.length];
       int testX = (this.getPosX() + d.getDeltaX());
       int testY = (this.getPosY() + d.getDeltaY());
@@ -265,12 +273,17 @@ public class Requin implements Agent {
   private void seDeplacer(int nouvellePositionX, int nouvellePositionY) {
     int oldX = this.getPosX();
     int oldY = this.getPosY();
-
-    this.getEnv().deleteAgent(oldX, oldY);
-
+    
     this.setPosX(nouvellePositionX);
     this.setPosY(nouvellePositionY);
-    this.getEnv().addAgent(this);
+    if (this.envi.addAgent(this)) {
+    	this.envi.deleteAgent(oldX, oldY);    	
+    }
+    else {
+    	this.setPosX(oldX);
+        this.setPosY(oldY);
+    }
+    //this.getEnv().addAgent(this);
   }
 
   /**

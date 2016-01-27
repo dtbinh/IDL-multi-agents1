@@ -11,6 +11,7 @@ import view.Vue;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -77,7 +78,7 @@ public class SMA {
   }
 
   public void run() throws InterruptedException {
-    System.out.println("#" + Data.nombreAgents);
+    //System.out.println("#" + Data.nombreAgents);
 
     // initialiser la vue
     GridPanel panel = new GridPanel(this.envi);
@@ -92,29 +93,47 @@ public class SMA {
       if (Data.equite) {
         Collections.shuffle(this.agents);
       }
-
+      System.out.println("tour: "+tour);
       List<Agent> newAgents = new ArrayList<Agent>();
       List<Agent> deletedAgents = new ArrayList<Agent>();
 
+      //printEnv();
       for (Agent agent : this.agents) {
-        agent.setEnv(this.envi);
-        Agent newAgent = agent.doIt();
+    	  if(!containsAgent(deletedAgents,agent)){
+    		  System.out.println(agent instanceof Requin?"Requin":"Poisson");
+        	  printEnv();
+        	  int oldX = agent.getPosX();
+        	  int oldY = agent.getPosY();
+        	  agent.setEnv(this.envi);
+        	  Agent newAgent = agent.doIt();
 
-        // S'il y a des naissances
-        if (newAgent != null) {
-          newAgents.add(newAgent);
-        }
+            // S'il y a des naissances
+            if (newAgent != null) {
+              newAgents.add(newAgent);
+              System.out.println("new bebe");
+            }
 
-        // S'il y a des décès
-        if (agent instanceof Requin && ((Requin) agent).doitMourir()) {
-          deletedAgents.add(agent);
-        }
+            // S'il y a des décès
+            if (agent instanceof Requin && ((Requin) agent).doitMourir()) {
+              deletedAgents.add(agent);
+            }
+            
+            if(agent instanceof Requin && ((Requin) agent).getPoissonMange()!=null){
+            	deletedAgents.add(((Requin)agent).getPoissonMange());
+            	System.out.println("poisson mange");
+            	//newAgents.add(agent);
+            	//Requin requin = new Requin(oldX,oldY);
+            	//deletedAgents.add(requin);        	
+            }
 
-        Environement newEnv = agent.getEnv(); // l'environnement modifié aprés le déplacement de l'agent
-        this.envi = newEnv; // On met é jour l'environnement pour les agents suivants
-        v.updateVue(this.envi);
+            Environement newEnv = agent.getEnv(); // l'environnement modifié aprés le déplacement de l'agent
+            this.envi = newEnv; // On met é jour l'environnement pour les agents suivants
+            v.updateVue(this.envi);
+    	  }    	  
+    	  else
+    		  System.out.println("skipped");
       }
-
+      //this.envi.printEnv();
       //mettre a jour la liste des agents
       for (Agent agent : newAgents) {
         this.agents.add(agent);
@@ -129,26 +148,67 @@ public class SMA {
       // Supprimer les requins morts de l'environnement et de la liste des agents
       for (Agent agentToDelete : deletedAgents) {
         this.envi.deleteAgent(agentToDelete.getPosX(), agentToDelete.getPosY());
-        this.agents.remove(agentToDelete);
-        Data.nombreRequins--;
-        Data.nombreAgents--;
+        deleteAgent(this.agents,agentToDelete);
+        //this.agents.remove(agentToDelete);
+        /*Agent realAgentToDelete = null;
+        Iterator<Agent> it = this.agents.iterator();
+        while(it.hasNext()){
+        	Agent a = it.next();
+        	if(a.getPosX()==agentToDelete.getPosX() && a.getPosY() == agentToDelete.getPosY()) {
+        		realAgentToDelete = a;
+        	}
+        }*/
+        //this.agents.remove(agentToDelete);
+        if(agentToDelete instanceof Requin){
+        	Data.nombreRequins--;
+            Data.nombreAgents--;
+        }        
       }
-
+      System.out.println("Fin du tour----------------");
+      printEnv();
       control.setTour(tour);
       v.updateVue(this.envi);
-      //            printEnv();
+      
       Thread.sleep(Data.vitesse); // On ralentit l'exécution
     }
     //        printEnv();
   }
 
+  private void deleteAgent(List<Agent> agents, Agent agent) {
+	  int indx=-1;
+	  for(int i=0;i<agents.size();i++){
+		  Agent a = agents.get(i);
+		  if(a.getPosX() == agent.getPosX() && a.getPosY() == agent.getPosY()) {
+			  indx = i;
+		  }
+	  }
+	  if(indx !=-1){
+		  this.agents.remove(indx);
+		  if(!this.agents.contains(agent))
+			  System.out.println("agent efface");
+		  else
+			  System.out.println("non efface");
+	  }
+  }
+  
+  private boolean containsAgent(List<Agent> agents, Agent agent) {
+	  for (Agent a : agents){
+		  if(a.getPosX() == agent.getPosX() && a.getPosY() == agent.getPosY()) {
+			  return true;
+		  }
+	  }
+	  return false;
+  }
+  
+  
+  
   private void printEnv() {
-
+	  System.out.println("----------------------");
     for (Agent a : this.agents) {
       int x = a.getPosX();
       int y = a.getPosY();
-      System.out.println("x: " + x + " | y: " + y + " | " + this.envi.getAgentInstance(x, y));
+      System.out.println("x: " + x + " | y: " + y + " | "+ (this.envi.agentIsPresent(x, y)? this.envi.getAgentInstance(x, y):" to be deleted" )); //+ this.envi.getAgentInstance(x, y)
     }
-    System.out.println("----------------------");
+    
   }
 }

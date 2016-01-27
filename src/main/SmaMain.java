@@ -23,7 +23,7 @@ public class SmaMain {
 
     Data.size = 5;
     Data.tours = 1000;
-    Data.vitesse = 500;
+    Data.vitesse = 100;
     Data.grilleVisible = false;
     Data.equite = true;
     Data.tp = 2;
@@ -39,13 +39,13 @@ public class SmaMain {
       if (Data.tp == 2) {
         Data.nombreAgents = 0;
 
-        Data.nombrePoissons = 2;
+        Data.nombrePoissons = 10;
         Data.nombreRequins = 1;
 
-        Data.seedPoisson = 5;
-        Data.seedRequin = 5;
+        Data.seedPoisson = 200;
+        Data.seedRequin = 200;
 
-        Data.longeviteRequin = 15;
+        Data.longeviteRequin = 10;
 
         SMA sma2 = new SMA();
         sma2.init();
