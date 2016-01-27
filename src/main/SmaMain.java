@@ -3,6 +3,7 @@ package main;
 import engine.SMA;
 import engine.SmaBilles;
 import util.Data;
+import util.Summary;
 
 public class SmaMain {
 
@@ -21,7 +22,7 @@ public class SmaMain {
      * - seed pour le Random (voir https://docs.oracle.com/javase/7/docs/api/java/util/Random.html#setSeed(long))
      */
 
-    Data.size = 5;
+    Data.size = 100;
     Data.tours = 1000;
     Data.vitesse = 100;
     Data.grilleVisible = false;
@@ -39,14 +40,14 @@ public class SmaMain {
       if (Data.tp == 2) {
         Data.nombreAgents = 0;
 
-        Data.nombrePoissons = 1;
-        Data.nombreRequins = 1;
+        Data.nombrePoissons = 170;
+        Data.nombreRequins = 55;
 
-        Data.seedPoisson = 1;
-        Data.seedRequin = 5;
+        Data.seedPoisson = 5;
+        Data.seedRequin = 6;
 
         Data.longeviteRequin = 10;
-
+        Summary.setOutputFile("C:\\Users\\AnaGissel\\Desktop\\wator.txt");
         SMA sma2 = new SMA();
         sma2.init();
         sma2.run();

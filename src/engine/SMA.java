@@ -5,6 +5,7 @@ import model.Environement;
 import model.Poisson;
 import model.Requin;
 import util.Data;
+import util.Summary;
 import view.ControlPanel;
 import view.GridPanel;
 import view.Vue;
@@ -93,14 +94,14 @@ public class SMA {
       if (Data.equite) {
         Collections.shuffle(this.agents);
       }
-      System.out.println("tour: "+tour);
+      //System.out.println("tour: "+tour);
       List<Agent> newAgents = new ArrayList<Agent>();
       List<Agent> deletedAgents = new ArrayList<Agent>();
 
       //printEnv();
       for (Agent agent : this.agents) {
     	  if(!containsAgent(deletedAgents,agent)){
-    		  System.out.println(agent instanceof Requin?"Requin":"Poisson");
+    		  //System.out.println(agent instanceof Requin?"Requin":"Poisson");
         	  //printEnv();
         	  int oldX = agent.getPosX();
         	  int oldY = agent.getPosY();
@@ -110,7 +111,7 @@ public class SMA {
             // S'il y a des naissances
             if (newAgent != null) {
               newAgents.add(newAgent);
-              System.out.println("new bebe");
+              //System.out.println("new bebe");
             }
 
             // S'il y a des décès
@@ -120,7 +121,7 @@ public class SMA {
             
             if(agent instanceof Requin && ((Requin) agent).getPoissonMange()!=null){
             	deletedAgents.add(((Requin)agent).getPoissonMange());
-            	System.out.println("poisson mange");
+            	//System.out.println("poisson mange");
             	//newAgents.add(agent);
             	//Requin requin = new Requin(oldX,oldY);
             	//deletedAgents.add(requin);        	
@@ -129,9 +130,7 @@ public class SMA {
             Environement newEnv = agent.getEnv(); // l'environnement modifié aprés le déplacement de l'agent
             this.envi = newEnv; // On met é jour l'environnement pour les agents suivants
             v.updateVue(this.envi);
-    	  }    	  
-    	  else
-    		  System.out.println("skipped");
+    	  }    	      	 
       }
       //this.envi.printEnv();
       //mettre a jour la liste des agents
@@ -164,11 +163,12 @@ public class SMA {
             Data.nombreAgents--;
         }        
       }
-      System.out.println("Fin du tour----------------");
+      //System.out.println("Fin du tour----------------");
       //printEnv();
       control.setTour(tour);
       v.updateVue(this.envi);
-      
+      System.out.println(tour+" "+Data.nombrePoissons+" "+Data.nombreRequins);
+      printSummary(tour);
       Thread.sleep(Data.vitesse); // On ralentit l'exécution
     }
     //        printEnv();
@@ -185,10 +185,6 @@ public class SMA {
 	  }
 	  if(indx !=-1){
 		  this.agents.remove(indx);
-		  if(!this.agents.contains(agent))
-			  System.out.println("agent efface");
-		  else
-			  System.out.println("non efface");
 	  }
   }
   
@@ -212,4 +208,8 @@ public class SMA {
     }
     
   }
+  
+  private static void printSummary(int tour){		
+		Summary.writeToOutputFile(tour+" "+Data.nombrePoissons+" "+Data.nombreRequins);
+	}
 }
