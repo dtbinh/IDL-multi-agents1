@@ -14,7 +14,11 @@ public class Coordonnees {
         this.y = y;
     }
 
-    public void setX(int x) {
+  public Coordonnees() {
+
+  }
+
+  public void setX(int x) {
         this.x = x;
     }
 
