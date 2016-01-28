@@ -115,6 +115,7 @@ public class Requin implements Agent {
     	  Data.nombrePoissons--;
     	  Data.nombreAgents--;
       }
+      //seDeplacer(coordPoisson.getX(), coordPoisson.getY());
       // On déplace le requin jusque la position du poisson
       //seDeplacer(coordPoisson.getX(), coordPoisson.getY());
       /*this.envi.deleteAgent(this.getPosX(), this.getPosY());

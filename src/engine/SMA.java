@@ -137,11 +137,11 @@ public class SMA {
       for (Agent agent : newAgents) {
         this.agents.add(agent);
         Boolean ajoute = this.envi.addAgent(agent);
-        while (!ajoute) {
+        /*while (!ajoute) {
           agent.setPosX(obtenirPositionRandom(Data.size));
           agent.setPosY(obtenirPositionRandom(Data.size));
           ajoute = this.envi.addAgent(agent);
-        }
+        }*/
       }
 
       // Supprimer les requins morts de l'environnement et de la liste des agents

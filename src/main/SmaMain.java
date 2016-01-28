@@ -24,7 +24,7 @@ public class SmaMain {
 
     Data.size = 100;
     Data.tours = 1000;
-    Data.vitesse = 100;
+    Data.vitesse = 50;
     Data.grilleVisible = false;
     Data.equite = true;
     Data.tp = 2;
@@ -41,12 +41,12 @@ public class SmaMain {
         Data.nombreAgents = 0;
 
         Data.nombrePoissons = 170;
-        Data.nombreRequins = 55;
+        Data.nombreRequins = 85;
 
         Data.seedPoisson = 5;
         Data.seedRequin = 6;
 
-        Data.longeviteRequin = 10;
+        Data.longeviteRequin = 8;
         Summary.setOutputFile("C:\\Users\\AnaGissel\\Desktop\\wator.txt");
         SMA sma2 = new SMA();
         sma2.init();
