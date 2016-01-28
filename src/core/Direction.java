@@ -1,4 +1,4 @@
-package model;
+package core;
 
 /**
  * Classe qui représente une direction

@@ -1,20 +1,21 @@
 package engine;
 
-import model.Agent;
-import model.Environement;
-import model.Poisson;
-import model.Requin;
 import util.Data;
 import util.Summary;
 import view.ControlPanel;
 import view.GridPanel;
 import view.Vue;
+import wator.Poisson;
+import wator.Requin;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+
+import core.Agent;
+import core.Environement;
 
 public class SMA {
 
@@ -37,7 +38,7 @@ public class SMA {
       int y = obtenirPositionRandom(Data.size);
 
       Poisson newAgent = new Poisson(x, y);
-      newAgent.setEnv(env);
+      //newAgent.setEnv(env);
       this.agents.add(newAgent);
       Data.nombreAgents++;
     }
@@ -47,7 +48,7 @@ public class SMA {
       int y = obtenirPositionRandom(Data.size);
 
       Requin newAgent = new Requin(x, y);
-      newAgent.setEnv(env);
+      //newAgent.setEnv(env);
       this.agents.add(newAgent);
       Data.nombreAgents++;
     }
@@ -105,7 +106,7 @@ public class SMA {
         	  //printEnv();
         	  int oldX = agent.getPosX();
         	  int oldY = agent.getPosY();
-        	  agent.setEnv(this.envi);
+        	  //agent.setEnv(this.envi);
         	  Agent newAgent = agent.doIt();
 
             // S'il y a des naissances
@@ -127,8 +128,8 @@ public class SMA {
             	//deletedAgents.add(requin);        	
             }
 
-            Environement newEnv = agent.getEnv(); // l'environnement modifié aprés le déplacement de l'agent
-            this.envi = newEnv; // On met é jour l'environnement pour les agents suivants
+            //Environement newEnv = agent.getEnv(); // l'environnement modifié aprés le déplacement de l'agent
+            //this.envi = newEnv; // On met é jour l'environnement pour les agents suivants
             v.updateVue(this.envi);
     	  }    	      	 
       }
