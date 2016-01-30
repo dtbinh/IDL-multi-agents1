@@ -1,6 +1,9 @@
 package view;
 
 import core.Environement;
+import pacman.Avatar;
+import pacman.Bloc;
+import pacman.Poursuiveur;
 import util.Data;
 import wator.Poisson;
 
@@ -35,12 +38,11 @@ public class GridPanel extends JPanel implements Observer {
     int width = (getWidth() / env.getTailleGrille() <= 1) ? 2 : getWidth() / env.getTailleGrille();
     int height = (getHeight() / env.getTailleGrille() <= 1) ? 2 : getHeight() / env.getTailleGrille();
 
+    //g.setFont(new Font("TimesRoman", width, height));
+    
     for (int x = 0; x < env.getTailleGrille(); x++) {
       for (int y = 0; y < env.getTailleGrille(); y++) {
-        if (Data.grilleVisible) {
-          g.setColor(new Color(0, 204, 204)); //Color.lightGray)
-          g.drawRect((x * width), (y * height), width, height);
-        }
+        
         if (env.agentIsPresent(x, y)) {
           // Billes
           if (Data.tp == 1) {
@@ -62,12 +64,53 @@ public class GridPanel extends JPanel implements Observer {
                 new int[] {(y * height) + height, (y * height), (y * height) + height}, 3);
             }
           }
+          //Pacman
+          if(Data.tp ==3){
+        	  if (env.getAgentInstance(x, y).equals(Bloc.class)) {
+        		  g.setColor(Color.gray);
+        		  g.fillRect((x * width), (y * height), width, height);
+        	  }
+        	  if (env.getAgentInstance(x, y).equals(Avatar.class)) {
+        		  g.setColor(Color.black);
+                  g.fillRect((x * width), (y * height), width, height);
+        		  g.setColor(Color.yellow);
+        		  g.fillOval((x * width), (y * height), width, height);
+        	  }
+        	  if (env.getAgentInstance(x, y).equals(Poursuiveur.class)) {
+        		  g.setColor(Color.black);
+                  g.fillRect((x * width), (y * height), width, height);
+        		  g.setColor(Color.blue);
+        		  g.fillOval((x * width), (y * height), width, height);
+        	  }
+          }
         } else {
-          g.setColor(new Color(205, 239, 255));
+        	if(Data.tp ==3){
+        		g.setColor(Color.black);
+        	}
+        	else {      		
+        		g.setColor(new Color(205, 239, 255));
+        	}
           g.fillRect((x * width), (y * height), width, height);
+          if(Data.tp ==3 && Data.afficherDistances){    	
+          	g.setColor(Color.lightGray);
+          	int d = this.env.getDistance(x, y);
+          	g.drawString(d+"", (x * width), (y * height)+height);
+          }
         }
+        if (Data.grilleVisible) {
+        	if(Data.tp==3){
+        		g.setColor(Color.darkGray); 
+        	}
+        	else{
+        		g.setColor(new Color(0, 204, 204)); //Color.lightGray)
+        	}
+          g.drawRect((x * width), (y * height), width, height);
+        }
+        
       }
     }
+    
+    
   }
 
 }

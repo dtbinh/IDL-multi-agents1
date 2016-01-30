@@ -22,7 +22,7 @@ public class Vue extends Observable { // implements Observer
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
         }
         grid = pnl;
-        JFrame frame = new JFrame("Chambre a particules");
+        JFrame frame = new JFrame("IDL - Multiagents");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
         JPanel panel = new JPanel();

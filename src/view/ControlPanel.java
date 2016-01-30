@@ -100,6 +100,15 @@ public class ControlPanel extends JPanel implements Observer {
       pnlInit.add(lblRequinsS);
       pnlInit.add(txtRequinsS);
     }
+    if(Data.tp==3){
+    	pnlInit.setPreferredSize(new Dimension(120, 80));
+        JLabel lblPorsuiveurs = new JLabel("Porsuiveurs");
+        JTextField txtPorsuiveurs = new JTextField(Data.nombrePoursuiveurs + "");
+        txtPorsuiveurs.setPreferredSize(new Dimension(80, 20));
+        txtPorsuiveurs.setEditable(false);
+        pnlInit.add(lblPorsuiveurs);
+        pnlInit.add(txtPorsuiveurs);
+    }
     this.add(pnlInit);
 
     //Current Data
