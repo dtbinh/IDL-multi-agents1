@@ -4,6 +4,11 @@ import core.Agent;
 import core.Environement;
 import core.SMA;
 import util.Data;
+import view.ControlPanel;
+import view.GridPanel;
+import view.Vue;
+import wator.Poisson;
+import wator.Requin;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,8 +22,17 @@ public class SmaPacman implements SMA {
 
   private Environement env;
   private List<Agent> agents;
+  private Dijkstra dijkstra;
+  
+  public SmaPacman(){
+	  this.dijkstra = new Dijkstra();
+  }
 
   @Override public void init() {
+	// on initialise l'environnement
+	    this.env = new Environement();
+	    env.init(Data.size);
+	    
     this.agents = new ArrayList<Agent>();
 
     // Creation des blocs
@@ -48,11 +62,30 @@ public class SmaPacman implements SMA {
     Avatar avatar = new Avatar(x, y);
     this.agents.add(avatar);
     Data.nombreAgents++;
+    
+    //Initialize environement
+    for (Agent agent : this.agents) {
+        Boolean ajoute = this.env.addAgent(agent);
+        while (!ajoute) { // tant que non ajoute
+          agent.setPosX(obtenirPositionRandom(Data.size));
+          agent.setPosY(obtenirPositionRandom(Data.size));
+          ajoute = this.env.addAgent(agent);
+        }
+     }
+    this.env = this.dijkstra.calculateDistances(this.env, x, y);
   }
 
+  
   @Override public void run() {
 
-    for (int tour = 0; tour < Data.tours; tour++) {
+	// initialiser la vue
+	    GridPanel panel = new GridPanel(this.env);
+	    ControlPanel control = new ControlPanel();
+	    Vue v = new Vue(panel, control);
+	    v.addObserver(control);
+	    v.addObserver(panel);
+	    
+    /*for (int tour = 0; tour < Data.tours; tour++) {
       if (Data.equite) {
         Collections.shuffle(this.agents);
       }
@@ -64,7 +97,7 @@ public class SmaPacman implements SMA {
 
       // A la fin de chaque tour, on reset la direction de l'avatar
       Avatar.setDIRECTION(null);
-    }
+    }*/
   }
 
   private Integer obtenirPositionRandom(Integer size) {

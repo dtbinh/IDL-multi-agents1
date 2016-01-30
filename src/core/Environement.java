@@ -4,6 +4,7 @@ public class Environement {
 
   private int gridSize;
   private Agent[][] space;
+  private Integer[][] distances;
 
   public void init(int size) {
     /*
@@ -11,7 +12,7 @@ public class Environement {
 		 */
     this.gridSize = size;
     this.space = new Agent[size][size]; // tous les agents sont nuls
-
+    this.distances = new Integer[size][size];
   }
 
   public Boolean agentIsPresent(int x, int y) {
@@ -45,6 +46,19 @@ public class Environement {
       this.space[x][y] = agent;
       return true;
     }
+  }
+  
+  public void setDistance(int distance, int x, int y){
+	  this.distances[x][y] = distance;
+  }
+  
+  public int getDistance(int x, int y){
+	  try{
+		  return this.distances[x][y];
+	  }
+	  catch(NullPointerException ex){
+		  return -1;
+	  }
   }
 
   public void printEnv() {
