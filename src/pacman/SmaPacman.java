@@ -98,14 +98,27 @@ public class SmaPacman implements SMA {
 
       Environement newEnv = null;
 
+      // Recuperer les nouvelles coord de l'Avatar
+      Integer xAvatar = null;
+      Integer yAvatar = null;
+
       // On fait parler chaque agent
       for (Agent agent : this.env.getAgents()) {
         newEnv = agent.doItWithEnv(this.env);
+
+        if (agent instanceof Avatar) {
+          xAvatar = agent.getPosX();
+          yAvatar = agent.getPosY();
+        }
+
+        // Mise a jour de l'environnement, potentiellement modifie par un agent
+        this.env = newEnv;
       }
 
-      this.env = newEnv;
-
       v.updateVue(this.env);
+
+      // Mettre a jour les distances
+      this.env = this.dijkstra.calculateDistances(this.env, xAvatar, yAvatar);
 
       try {
         Thread.sleep(Data.vitesse);

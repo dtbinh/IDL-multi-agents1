@@ -15,7 +15,6 @@ public class ListenerClavier implements KeyListener {
   }
 
   @Override public void keyPressed(KeyEvent e) {
-    System.out.println(e.getKeyCode());
     switch (e.getKeyCode()) {
       case KeyEvent.VK_UP:
         Avatar.setDIRECTION(Direction.SUD);
