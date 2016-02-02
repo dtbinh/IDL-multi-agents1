@@ -68,4 +68,25 @@ public class Avatar extends Agent {
   public static void setDIRECTION(Direction DIRECTION) {
     Avatar.DIRECTION = DIRECTION;
   }
+
+  public Boolean isCatched(Environement env) {
+    Direction directions[] = Direction.values();
+
+    for (Direction direction : directions) {
+      int nouveauX = (this.getPosX() + direction.getDeltaX()) % Data.size;
+      int nouveauY = (this.getPosY() + direction.getDeltaY()) % Data.size;
+
+      if (nouveauX == -1) {
+        nouveauX = Data.size - 1;
+      }
+      if (nouveauY == -1) {
+        nouveauY = Data.size - 1;
+      }
+
+      if (env.agentIsPresent(nouveauX, nouveauY)) {
+        return env.getAgent(nouveauX, nouveauY) instanceof Poursuiveur;
+      }
+    }
+    return false;
+  }
 }

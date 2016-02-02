@@ -13,9 +13,9 @@ public class SmaMain {
     // Le Système multi agents a lancer
     Data.tp = 3;
 
-    Data.size = 100;
+    Data.size = 50;
     Data.tours = 1000;
-    Data.vitesse = 10;
+    Data.vitesse = 1000;
     Data.grilleVisible = false;
     Data.equite = true;
 
@@ -45,10 +45,10 @@ public class SmaMain {
       }
       if (Data.tp == 3) {
         Data.nombreAgents = 0;
-        Data.pourcentageBlocs = 1;
-        Data.nombrePoursuiveurs = 20;
+        Data.pourcentageBlocs = 3;
+        Data.nombrePoursuiveurs = 2;
 
-        Data.afficherDistances = false;
+        Data.afficherDistances = true;
 
         SmaPacman sma = new SmaPacman();
         sma.init();

@@ -109,6 +109,12 @@ public class SmaPacman implements SMA {
         if (agent instanceof Avatar) {
           xAvatar = agent.getPosX();
           yAvatar = agent.getPosY();
+
+          if (((Avatar) agent).isCatched(this.env)){
+            Data.tours = 0;
+            System.out.println("GAME OVER.");
+            continue;
+          }
         }
 
         // Mise a jour de l'environnement, potentiellement modifie par un agent
