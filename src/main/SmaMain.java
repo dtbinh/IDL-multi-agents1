@@ -45,7 +45,7 @@ public class SmaMain {
       }
       if (Data.tp == 3) {
         Data.nombreAgents = 0;
-        Data.pourcentageBlocs = 1;
+        Data.pourcentageBlocs = 0;
         Data.nombrePoursuiveurs = 1;
 
         Data.afficherDistances = false;

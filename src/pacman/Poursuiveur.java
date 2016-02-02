@@ -13,7 +13,7 @@ public class Poursuiveur extends Agent {
   }
 
   @Override public Environement doItWithEnv(Environement env) {
-    System.out.println("Poursuiveur parle.");
+//    System.out.println("Poursuiveur parle.");
     return env;
   }
 }

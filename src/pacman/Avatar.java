@@ -14,23 +14,31 @@ public class Avatar extends Agent {
 
   public Avatar(int posX, int posY) {
     super(posX, posY);
-    setDIRECTION(Direction.EST);
+    setDIRECTION(Direction.OUEST);
   }
 
   @Override public Environement doItWithEnv(Environement env) {
-    System.out.println("Avatar parle.");
+//    System.out.println("Avatar parle.");
 
     // On recupere la direction de l'avatar
     Direction direction = getDIRECTION();
 
     if (direction != null) {
 
+
       int nouveauX = (this.getPosX() + direction.getDeltaX()) % Data.size;
       int nouveauY = (this.getPosY() + direction.getDeltaY()) % Data.size;
 
-      System.out.println("x = "+this.posX + " delta = "+direction.getDeltaX() +" size = "+Data.size);
-      System.out.println("y = "+this.posY + " delta = "+direction.getDeltaY() +" size = "+Data.size);
-      System.out.println("{ "+nouveauX+" ; "+nouveauY+"}");
+      if(nouveauX == -1) {
+        nouveauX = Data.size - 1;
+      }
+      if (nouveauY == -1) {
+        nouveauY = Data.size - 1;
+      }
+
+//      System.out.println("x = "+this.posX + " delta = "+direction.getDeltaX() +" size = "+Data.size);
+//      System.out.println("y = "+this.posY + " delta = "+direction.getDeltaY() +" size = "+Data.size);
+//      System.out.println("{ "+nouveauX+" ; "+nouveauY+"}");
 
       // On verifie s'il y a un agent sur la prochaine case
       boolean occuped = env.agentIsPresent(nouveauX, nouveauY);
@@ -38,7 +46,7 @@ public class Avatar extends Agent {
       // Si la prochaine case est occupee alors on ne bouge pas
       if (occuped) {
 
-        System.out.println("Avatar dit : 'Je suis bloqué !'");
+//        System.out.println("Avatar dit : 'Je suis bloqué !'");
         return env;
 
       } else {

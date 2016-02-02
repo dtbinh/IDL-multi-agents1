@@ -3,6 +3,7 @@ package view;
 import core.Environement;
 import pacman.Avatar;
 import pacman.Bloc;
+import pacman.ListenerClavier;
 import pacman.Poursuiveur;
 import util.Data;
 import wator.Poisson;
@@ -23,6 +24,10 @@ public class GridPanel extends JPanel implements Observer {
     int size = this.env.getTailleGrille();
     this.grid = new JPanel[size][size];
     this.setPreferredSize(new Dimension(600, 600));
+//    this.addKeyListener(this);
+    this.addKeyListener(new ListenerClavier());
+    this.setFocusable(true);
+
   }
 
   public void setEnvironement(Environement env) {
