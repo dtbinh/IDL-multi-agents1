@@ -1,6 +1,7 @@
 package pacman;
 
 import core.Agent;
+import core.Environement;
 
 /**
  * Created by Pauline on 27/01/2016.
@@ -11,8 +12,8 @@ public class Bloc extends Agent {
     super(posX, posY);
   }
 
-  @Override public Agent doIt() {
-    System.out.println("Bloc parle.");
-    return null;
+  @Override public Environement doItWithEnv(Environement env) {
+    //System.out.println("Bloc parle.");
+    return env;
   }
 }

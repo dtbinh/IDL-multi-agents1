@@ -1,10 +1,14 @@
 package core;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Environement {
 
   private int gridSize;
   private Agent[][] space;
   private Integer[][] distances;
+  private List<Agent> agents;
 
   public void init(int size) {
     /*
@@ -13,6 +17,7 @@ public class Environement {
     this.gridSize = size;
     this.space = new Agent[size][size]; // tous les agents sont nuls
     this.distances = new Integer[size][size];
+    this.agents = new ArrayList<Agent>();
   }
 
   public Boolean agentIsPresent(int x, int y) {
@@ -59,6 +64,14 @@ public class Environement {
 	  catch(NullPointerException ex){
 		  return -1;
 	  }
+  }
+
+  public List<Agent> getAgents() {
+    return agents;
+  }
+
+  public void setAgents(List<Agent> agents) {
+    this.agents = agents;
   }
 
   public void printEnv() {

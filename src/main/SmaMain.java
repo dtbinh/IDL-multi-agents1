@@ -11,11 +11,11 @@ public class SmaMain {
   public static void main(String[] args) {
 
     // Le Système multi agents a lancer
-    Data.tp = 2;
+    Data.tp = 3;
 
     Data.size = 100;
     Data.tours = 1000;
-    Data.vitesse = 50;
+    Data.vitesse = 10;
     Data.grilleVisible = false;
     Data.equite = true;
 
@@ -45,8 +45,8 @@ public class SmaMain {
       }
       if (Data.tp == 3) {
         Data.nombreAgents = 0;
-        Data.nombreBlocs = 100; // TODO: a modifier pour mettre en pourcentage
-        Data.nombrePoursuiveurs = 2;
+        Data.pourcentageBlocs = 1;
+        Data.nombrePoursuiveurs = 1;
 
         Data.afficherDistances = false;
 

@@ -19,7 +19,7 @@ public class Data {
   public static int longeviteRequin; // nombre de jours qu'un requin peut vivre sans manager
 
   // Pacman
-  public static int nombreBlocs;
+  public static int pourcentageBlocs;
   public static int nombrePoursuiveurs;
   public static Boolean afficherDistances;
 }

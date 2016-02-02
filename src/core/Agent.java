@@ -57,4 +57,12 @@ public abstract class Agent {
   public Agent doIt() {
     return null;
   }
+
+  /**
+   * Methode de decision d'un agent
+   * @return l'environnement modifie
+   */
+  public Environement doItWithEnv(Environement env) {
+    return env;
+  }
 }

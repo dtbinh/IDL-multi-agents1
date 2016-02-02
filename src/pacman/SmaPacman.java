@@ -7,13 +7,8 @@ import util.Data;
 import view.ControlPanel;
 import view.GridPanel;
 import view.Vue;
-import wator.Poisson;
-import wator.Requin;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by Pauline on 27/01/2016.
@@ -21,84 +16,106 @@ import java.util.Random;
 public class SmaPacman implements SMA {
 
   private Environement env;
-  private List<Agent> agents;
   private Dijkstra dijkstra;
-  
-  public SmaPacman(){
-	  this.dijkstra = new Dijkstra();
+
+  public SmaPacman() {
+    this.dijkstra = new Dijkstra();
   }
 
   @Override public void init() {
-	// on initialise l'environnement
-	    this.env = new Environement();
-	    env.init(Data.size);
-	    
-    this.agents = new ArrayList<Agent>();
+    // on initialise l'environnement
+    this.env = new Environement();
+    this.env.init(Data.size);
 
-    // Creation des blocs
-    for (int indexBlocs = 0; indexBlocs < Data.nombreBlocs; indexBlocs++) {
+    if (Data.pourcentageBlocs > 99) {
+      System.out.println("Attention, trop de blocs");
+      Data.pourcentageBlocs = 99;
+    }
+
+    int nombreblocs = ((Data.size * Data.size) / 100) * Data.pourcentageBlocs;
+
+    /* ************************************ Creation des blocs ************************************ */
+    for (int indexBlocs = 0; indexBlocs < nombreblocs; indexBlocs++) {
       int x = obtenirPositionRandom(Data.size);
       int y = obtenirPositionRandom(Data.size);
 
-      // TODO: a modifier pour mettre en pourcentage
       Bloc bloc = new Bloc(x, y);
-      this.agents.add(bloc);
+      Boolean ajoute = this.env.addAgent(bloc);
+      while (!ajoute) { // tant que non ajoute
+        bloc.setPosX(obtenirPositionRandom(Data.size));
+        bloc.setPosY(obtenirPositionRandom(Data.size));
+        ajoute = this.env.addAgent(bloc);
+      }
+      this.env.getAgents().add(bloc);
       Data.nombreAgents++;
     }
 
-    // Poursuiveurs
+    /* ************************************ Creation des poursuiveurs ************************************ */
     for (int indexPoursuiveurs = 0; indexPoursuiveurs < Data.nombrePoursuiveurs; indexPoursuiveurs++) {
       int x = obtenirPositionRandom(Data.size);
       int y = obtenirPositionRandom(Data.size);
 
       Poursuiveur poursuiveur = new Poursuiveur(x, y);
-      this.agents.add(poursuiveur);
+      Boolean ajoute = this.env.addAgent(poursuiveur);
+      while (!ajoute) { // tant que non ajoute
+        poursuiveur.setPosX(obtenirPositionRandom(Data.size));
+        poursuiveur.setPosY(obtenirPositionRandom(Data.size));
+        ajoute = this.env.addAgent(poursuiveur);
+      }
+      this.env.getAgents().add(poursuiveur);
       Data.nombreAgents++;
     }
 
-    // Avatar
+    /* ************************************ Creation de l'avatar ************************************ */
     int x = obtenirPositionRandom(Data.size);
     int y = obtenirPositionRandom(Data.size);
     Avatar avatar = new Avatar(x, y);
-    this.agents.add(avatar);
+    Boolean ajoute = this.env.addAgent(avatar);
+    while (!ajoute) { // tant que non ajoute
+      avatar.setPosX(obtenirPositionRandom(Data.size));
+      avatar.setPosY(obtenirPositionRandom(Data.size));
+      ajoute = this.env.addAgent(avatar);
+    }
+    this.env.getAgents().add(avatar);
     Data.nombreAgents++;
-    
-    //Initialize environement
-    for (Agent agent : this.agents) {
-        Boolean ajoute = this.env.addAgent(agent);
-        while (!ajoute) { // tant que non ajoute
-          agent.setPosX(obtenirPositionRandom(Data.size));
-          agent.setPosY(obtenirPositionRandom(Data.size));
-          ajoute = this.env.addAgent(agent);
-        }
-     }
+
     this.env = this.dijkstra.calculateDistances(this.env, x, y);
   }
 
-  
   @Override public void run() {
 
-	// initialiser la vue
-	    GridPanel panel = new GridPanel(this.env);
-	    ControlPanel control = new ControlPanel();
-	    Vue v = new Vue(panel, control);
-	    v.addObserver(control);
-	    v.addObserver(panel);
-	    
-    /*for (int tour = 0; tour < Data.tours; tour++) {
+    // initialiser la vue
+    GridPanel panel = new GridPanel(this.env);
+    ControlPanel control = new ControlPanel();
+    Vue v = new Vue(panel, control);
+    v.addObserver(control);
+    v.addObserver(panel);
+
+    for (int tour = 0; tour < Data.tours; tour++) {
       if (Data.equite) {
-        Collections.shuffle(this.agents);
+        Collections.shuffle(this.env.getAgents());
       }
+
+      Environement newEnv = null;
 
       // On fait parler chaque agent
-      for (Agent agent : this.agents) {
-        agent.doIt();
+      for (Agent agent : this.env.getAgents()) {
+        newEnv = agent.doItWithEnv(this.env);
       }
 
-      // A la fin de chaque tour, on reset la direction de l'avatar
-      Avatar.setDIRECTION(null);
-    }*/
+      this.env = newEnv;
+
+      v.updateVue(this.env);
+
+      try {
+        Thread.sleep(Data.vitesse);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
   }
+
+  /* ************************************************************************************** */
 
   private Integer obtenirPositionRandom(Integer size) {
     Random rand = new Random();
