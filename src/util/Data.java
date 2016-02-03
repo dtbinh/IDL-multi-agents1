@@ -22,4 +22,5 @@ public class Data {
   public static int pourcentageBlocs;
   public static int nombrePoursuiveurs;
   public static Boolean afficherDistances;
+  public static Boolean avatarTorique;
 }

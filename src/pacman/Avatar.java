@@ -23,14 +23,35 @@ public class Avatar extends Agent {
 
     if (direction != null) {
 
-      int nouveauX = (this.getPosX() + direction.getDeltaX()) % Data.size;
-      int nouveauY = (this.getPosY() + direction.getDeltaY()) % Data.size;
+      int nouveauX;
+      int nouveauY;
 
-      if(nouveauX == -1) {
-        nouveauX = Data.size - 1;
-      }
-      if (nouveauY == -1) {
-        nouveauY = Data.size - 1;
+      if (Data.avatarTorique) {
+        nouveauX = (this.getPosX() + direction.getDeltaX()) % Data.size;
+        nouveauY = (this.getPosY() + direction.getDeltaY()) % Data.size;
+
+        if(nouveauX == -1) {
+          nouveauX = Data.size - 1;
+        }
+        if (nouveauY == -1) {
+          nouveauY = Data.size - 1;
+        }
+      } else {
+        nouveauX = this.getPosX() + direction.getDeltaX();
+        nouveauY = this.getPosY() + direction.getDeltaY();
+
+        if (nouveauX == -1) {
+          nouveauX = 0;
+        }
+        if (nouveauX == Data.size) {
+          nouveauX = Data.size -1;
+        }
+        if (nouveauY == -1) {
+          nouveauY = 0;
+        }
+        if (nouveauY == Data.size) {
+          nouveauY = Data.size - 1;
+        }
       }
 
       // On verifie s'il y a un agent sur la prochaine case
