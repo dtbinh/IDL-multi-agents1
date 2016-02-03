@@ -17,6 +17,7 @@ public class SmaPacman implements SMA {
 
   private Environement env;
   private Dijkstra dijkstra;
+  private Boolean isGameOver = false;
 
   public SmaPacman() {
     this.dijkstra = new Dijkstra();
@@ -91,7 +92,7 @@ public class SmaPacman implements SMA {
     v.addObserver(control);
     v.addObserver(panel);
 
-    for (int tour = 0; tour < Data.tours; tour++) {
+    while (!isGameOver) {
       if (Data.equite) {
         Collections.shuffle(this.env.getAgents());
       }
@@ -110,11 +111,7 @@ public class SmaPacman implements SMA {
           xAvatar = agent.getPosX();
           yAvatar = agent.getPosY();
 
-          if (((Avatar) agent).isCatched(this.env)){
-            Data.tours = 0;
-            System.out.println("GAME OVER.");
-            continue;
-          }
+          this.isGameOver = ((Avatar) agent).isCatched(this.env);
         }
 
         // Mise a jour de l'environnement, potentiellement modifie par un agent
