@@ -44,6 +44,8 @@ public class SmaMain {
         sma2.run();
       }
       if (Data.tp == 3) {
+        Data.isGameOver = false;
+
         Data.nombreAgents = 0;
         Data.pourcentageBlocs = 3;
         Data.nombrePoursuiveurs = 1;

@@ -30,8 +30,22 @@ public class ControlPanel extends JPanel implements Observer {
     JTextField txtGrille = new JTextField(Data.size + "");
     txtGrille.setPreferredSize(new Dimension(80, 20));
     txtGrille.setEditable(false);
-    JLabel lblTour = new JLabel("Tour         ");
-    txtTour = new JTextField("1");
+
+    String stringTours = "";
+    String contenuTours = "";
+    if (Data.tp == 3) {
+      stringTours = "Etat         ";
+      if (Data.isGameOver) {
+        contenuTours = "GAME OVER !";
+      } else {
+        contenuTours = "GO !";
+      }
+    } else {
+      stringTours = "Tour         ";
+      contenuTours = "1";
+    }
+    JLabel lblTour = new JLabel(stringTours);
+    txtTour = new JTextField(contenuTours);
     txtTour.setPreferredSize(new Dimension(80, 20));
     txtTour.setEditable(false);
     JLabel lblVitesse = new JLabel("Vitesse     ");
@@ -100,14 +114,14 @@ public class ControlPanel extends JPanel implements Observer {
       pnlInit.add(lblRequinsS);
       pnlInit.add(txtRequinsS);
     }
-    if(Data.tp==3){
-    	pnlInit.setPreferredSize(new Dimension(120, 80));
-        JLabel lblPorsuiveurs = new JLabel("Porsuiveurs");
-        JTextField txtPorsuiveurs = new JTextField(Data.nombrePoursuiveurs + "");
-        txtPorsuiveurs.setPreferredSize(new Dimension(80, 20));
-        txtPorsuiveurs.setEditable(false);
-        pnlInit.add(lblPorsuiveurs);
-        pnlInit.add(txtPorsuiveurs);
+    if (Data.tp == 3) {
+      pnlInit.setPreferredSize(new Dimension(120, 80));
+      JLabel lblPorsuiveurs = new JLabel("Porsuiveurs");
+      JTextField txtPorsuiveurs = new JTextField(Data.nombrePoursuiveurs + "");
+      txtPorsuiveurs.setPreferredSize(new Dimension(80, 20));
+      txtPorsuiveurs.setEditable(false);
+      pnlInit.add(lblPorsuiveurs);
+      pnlInit.add(txtPorsuiveurs);
     }
     this.add(pnlInit);
 
@@ -140,8 +154,15 @@ public class ControlPanel extends JPanel implements Observer {
 
   @Override
   public void update(Observable o, Object arg) {
-    // TODO Auto-generated method stub
-    this.txtTour.setText((this.tour + 1) + "");
+    if (Data.tp == 3) {
+      if (Data.isGameOver) {
+        this.txtTour.setText("GAME OVER !");
+      } else {
+        this.txtTour.setText("GO !");
+      }
+    } else {
+      this.txtTour.setText((this.tour + 1) + "");
+    }
     if (Data.tp == 2) {
       this.txtPoissons.setText(Data.nombrePoissons + "");
       this.txtRequins.setText(Data.nombreRequins + "");

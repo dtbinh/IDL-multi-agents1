@@ -23,4 +23,5 @@ public class Data {
   public static int nombrePoursuiveurs;
   public static Boolean afficherDistances;
   public static Boolean avatarTorique;
+  public static Boolean isGameOver;
 }
