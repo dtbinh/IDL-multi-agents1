@@ -5,9 +5,6 @@ import core.Direction;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-/**
- * Created by Pauline on 28/01/2016.
- */
 public class ListenerClavier implements KeyListener {
 
   @Override public void keyTyped(KeyEvent e) {

@@ -1,20 +1,18 @@
 package pacman;
 
+import java.util.Random;
+
 import core.Agent;
 import core.Coordonnees;
 import core.Direction;
 import core.Environement;
 import util.Data;
 
-import java.util.Random;
-
-/**
- * Created by Pauline on 27/01/2016.
- */
 public class Poursuiveur extends Agent {
 
-  public Poursuiveur(int posX, int posY) {
+  public Poursuiveur(int posX, int posY, Integer vitesse) {
     super(posX, posY);
+    this.vitesse = vitesse;
   }
 
   @Override public Environement doItWithEnv(Environement env) {

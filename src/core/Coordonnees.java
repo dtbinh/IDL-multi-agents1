@@ -1,5 +1,7 @@
 package core;
 
+import java.util.Random;
+
 /**
  * Classe qui représente un couple de coordonnées
  * Created by Pauline on 25/01/2016.
@@ -32,5 +34,10 @@ public class Coordonnees {
 
   public int getY() {
     return y;
+  }
+  
+  public static Integer obtenirPositionRandom(Integer size) {
+	Random rand = new Random();
+	return rand.nextInt((size - 1) + 1);
   }
 }

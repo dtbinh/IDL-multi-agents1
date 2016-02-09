@@ -1,14 +1,11 @@
 package wator;
 
 import core.Agent;
+import core.Direction;
 import util.Data;
-
-import java.util.Random;
 
 public class Poisson extends Agent {
 
-  private Integer pasX;
-  private Integer pasY;
   private int tour;
 
   public Poisson(int posX, int posY) {
@@ -18,22 +15,6 @@ public class Poisson extends Agent {
     this.pasX = null;
     this.pasY = null;
     this.tour = 0;
-  }
-
-  public Integer getPasX() {
-    return pasX;
-  }
-
-  public void setPasX(int pasX) {
-    this.pasX = pasX;
-  }
-
-  public Integer getPasY() {
-    return pasY;
-  }
-
-  public void setPasY(int pasY) {
-    this.pasY = pasY;
   }
 
   public Poisson doIt() {
@@ -87,8 +68,8 @@ public class Poisson extends Agent {
     // Si aucune direction deje choisie (ie. pasX et pasY = 0)
     if (this.getPasX() == null || this.getPasY() == null) {
       // Alors on genere les directions pour les diagonales
-      this.pasX = genererDirection();
-      this.pasY = genererDirection();
+      this.pasX = Direction.genererDirection();
+      this.pasY = Direction.genererDirection();
     }
 
     // Calcul des nouvelles coordonnees
@@ -156,22 +137,9 @@ public class Poisson extends Agent {
       // puis on attend le prochain tour
       this.setPosX(oldX);
       this.setPosY(oldY);
-      this.setPasX(genererDirection());
-      this.setPasY(genererDirection());
+      this.setPasX(Direction.genererDirection());
+      this.setPasY(Direction.genererDirection());
     }
-  }
-
-  /**
-   * Genere un nombre aleatoire entre -1 et 1
-   * @return un nombre aleatoire
-   */
-  private int genererDirection() {
-    int result;
-    Random r = new Random();
-    do {
-      result = r.nextInt(3) - 1;
-    } while (result == 0);
-    return result;
   }
 
 }

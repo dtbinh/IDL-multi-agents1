@@ -51,7 +51,7 @@ public class GridPanel extends JPanel implements Observer {
         if (env.agentIsPresent(x, y)) {
           // Billes
           if (Data.tp == 1) {
-            g.setColor(Color.BLUE);
+            g.setColor(env.getAgent(x, y).getCouleur());
             g.fillOval((x * width), (y * height), width, height);
           }
           // Wator

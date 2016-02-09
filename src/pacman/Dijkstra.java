@@ -2,9 +2,7 @@ package pacman;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
-import core.Agent;
 import core.Direction;
 import core.Environement;
 import util.Data;
@@ -51,7 +49,7 @@ public class Dijkstra {
 			Direction d = directions[index];
 			int nextX = x + d.getDeltaX();
 			int nextY = y + d.getDeltaY();
-			//verifier que la nouvelle position existe, que n'etait pas visité
+			//verifier que la nouvelle position existe, que n'etait pas visitï¿½
 			if(((nextX < Data.size && nextX >= 0) && (nextY < Data.size && nextY >= 0)) 
 					&& !visited.contains(nextX+","+nextY)){ 
 				setDistance(nextX,nextY,this.env.getDistance(nextX, nextY));

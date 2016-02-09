@@ -21,6 +21,9 @@ public class Data {
   // Pacman
   public static int pourcentageBlocs;
   public static int nombrePoursuiveurs;
+  public static int vitesseAvatar;
+  public static int vitessePoursuiveur;
+
   public static Boolean afficherDistances;
   public static Boolean avatarTorique;
   public static Boolean isGameOver;

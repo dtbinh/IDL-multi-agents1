@@ -19,8 +19,6 @@ public class Summary {
 		{
 		    output.printf("%s\r\n", text);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 }

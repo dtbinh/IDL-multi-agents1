@@ -5,16 +5,14 @@ import core.Direction;
 import core.Environement;
 import util.Data;
 
-/**
- * Created by Pauline on 27/01/2016.
- */
 public class Avatar extends Agent {
 
   private static Direction DIRECTION;
 
-  public Avatar(int posX, int posY) {
+  public Avatar(int posX, int posY, Integer vitesse) {
     super(posX, posY);
     setDIRECTION(Direction.OUEST);
+    this.vitesse = vitesse;
   }
 
   @Override public Environement doItWithEnv(Environement env) {

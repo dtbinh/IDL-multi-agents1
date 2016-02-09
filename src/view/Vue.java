@@ -12,7 +12,7 @@ public class Vue extends Observable { // implements Observer
   GridPanel grid;
   ControlPanel control;
 
-  public Vue(GridPanel pnl, ControlPanel control) {
+  public Vue(final GridPanel pnl, final ControlPanel control) {
 
     EventQueue.invokeLater(new Runnable() {
       @Override
